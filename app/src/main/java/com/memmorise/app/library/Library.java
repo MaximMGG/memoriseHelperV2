@@ -1,5 +1,7 @@
 package com.memmorise.app.library;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Library {
@@ -28,5 +30,20 @@ public class Library {
 
     public void setLibraryContent(Map<String, String> libraryContent) {
         this.libraryContent = libraryContent;
+    }
+
+    public void setLibraryContent(List<String> libraryContent) {
+        this.libraryContent = mapLibraryListToMap(libraryContent);
+
+    }
+
+    private Map<String, String> mapLibraryListToMap(List<String> libraryListContent) {
+        final Map<String, String> libraryMapContent = new HashMap<>();
+
+        libraryListContent.stream()
+                            .map(x -> x.split(" : "))
+                            .forEach(x -> libraryMapContent.put(x[0], x[1]));
+
+        return libraryMapContent;
     }
 }
