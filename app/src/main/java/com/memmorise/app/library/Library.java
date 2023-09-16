@@ -1,5 +1,6 @@
 package com.memmorise.app.library;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,10 @@ public class Library {
         return libraryContent;
     }
 
+    public List<String> getLibraryContentByList() {
+        return mapLibraryMapToList();
+    }
+
     public void setLibraryContent(Map<String, String> libraryContent) {
         this.libraryContent = libraryContent;
     }
@@ -46,4 +51,13 @@ public class Library {
 
         return libraryMapContent;
     }
+    
+    private List<String> mapLibraryMapToList() {
+        List<String> listLibraryContetnt = new ArrayList<>();
+        for(Map.Entry<String, String> entry : libraryContent.entrySet()) {
+            listLibraryContetnt.add(entry.getKey() + " : " + entry.getValue());
+        }
+        return listLibraryContetnt;
+    }
+
 }

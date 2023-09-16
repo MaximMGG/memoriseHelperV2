@@ -33,4 +33,24 @@ public class LibraryTest {
 
         Assertions.assertThat(result).isEqualTo(mapLibrary);
     }
+
+    @Test
+    void mapMapToListTest() {
+        Map<String, String> mapLibrary = new HashMap<>();
+            mapLibrary.put("cat", "кот, котик, кошка");
+            mapLibrary.put("dog", "собака, пёс, цуцик");
+        List<String> listLibrary = List.of(
+                "cat : кот, котик, кошка",
+                "dog : собака, пёс, цуцик"
+                );
+
+        library.setLibraryContent(mapLibrary);
+        List<String> result = library.getLibraryContentByList();
+
+
+        Assertions.assertThat(result).isEqualTo(listLibrary);
+
+
+
+    }
 }

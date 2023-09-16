@@ -8,6 +8,26 @@ public class User {
 
     private String username;
     private List<Library> libraries;
+    private Library currentLibrary;
+
+    public User() {}
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public User(String username, List<Library> libraries) {
+        this.username = username;
+        this.libraries = libraries;
+    }
+
+    public Library getCurrentLibrary() {
+        return currentLibrary;
+    }
+
+    public void setCurrentLibrary(Library currentLibrary) {
+        this.currentLibrary = currentLibrary;
+    }
 
     public String getUsername() {
         return username;
@@ -25,11 +45,5 @@ public class User {
         this.libraries = libraries;
     }
 
-    public User() {}
-
-    public User(String username, List<Library> libraries) {
-        this.username = username;
-        this.libraries = libraries;
-    }
 
 }
