@@ -12,6 +12,10 @@ public class Library {
 
     public Library() {}
 
+    public Library(String libraryName) {
+        this.libraryName = libraryName;
+    }
+
     public Library(String libraryName, Map<String, String> libraryContent) {
         this.libraryName = libraryName;
         this.libraryContent = libraryContent;
