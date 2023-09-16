@@ -1,6 +1,5 @@
 package com.memmorise.app.files;
 
-import com.memmorise.app.exception.MemoriseException;
 import com.memmorise.app.library.Library;
 import com.memmorise.app.user.User;
 
@@ -14,7 +13,7 @@ public class FilePrepare {
         this.user = user;
         try {
             diskWorker.setup(user);
-        } catch (MemoriseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
