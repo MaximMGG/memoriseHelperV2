@@ -34,7 +34,7 @@ public class ClientTach {
         switch (userChoose) {
             case 1 -> {clientWork.createLibrary();}
             case 2 -> {clientWork.showAllUseLibraris();}
-            case 3 -> {clientWork.createLibrary();}
+            case 3 -> {clientWork.changeLibrary();}
             case 4 -> {clientWork.startToMemorise();}
         }
     }

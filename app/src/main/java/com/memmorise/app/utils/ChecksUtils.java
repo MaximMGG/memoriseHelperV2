@@ -64,7 +64,7 @@ public class ChecksUtils {
         return word;
     }
 
-    public List<String> getUserChoose(List<String> translations) {
+    public static List<String> getUserChoose(List<String> translations) {
         scan = new Scanner(System.in);
         List<String> userChoose = new ArrayList<>();
 

@@ -13,4 +13,9 @@ public class ClientWordBufer {
         ***********************************************************************
             """;
     
+    public static final String LIST_OF_LENGUAGES = """
+                    1.English
+                    2.Russian
+            
+            """;
 }
