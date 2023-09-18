@@ -13,11 +13,9 @@ import com.memmorise.app.user.User;
 public class DiskWorker {
 
     private User user;
-    private Library library;
 
-    public DiskWorker(User user) {
-        this.user = user;
-        this.library = user.getCurrentLibrary();
+    public DiskWorker() {
+        this.user = User.getInstance();
     }
 
     public void setup() throws IOException {
@@ -83,11 +81,6 @@ public class DiskWorker {
         }
         user.setLibraries(userLibraries);
     }
-
-    public void setLibrary(Library library) throws IOException {
-        this.library = library;
-    }
-
 
     private boolean isNewUser() throws IOException {
 

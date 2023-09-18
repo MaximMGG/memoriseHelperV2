@@ -9,9 +9,9 @@ public class FilePrepare {
     private Library currentLibrary;
     private DiskWorker diskWorker;
 
-    public FilePrepare(User user) {
-        this.user = user;
-        diskWorker = new DiskWorker(user);
+    public FilePrepare() {
+        this.user = User.getInstance();
+        diskWorker = new DiskWorker();
         try {
             diskWorker.setup();
         } catch (Exception e) {
@@ -23,7 +23,6 @@ public class FilePrepare {
         this.currentLibrary = library;
     }
 
-    public 
 
 
 

@@ -7,13 +7,17 @@ import com.memmorise.app.library.Library;
 public class User {
 
     private String username;
+    private static User instance;
     private List<Library> libraries;
     private Library currentLibrary;
 
-    public User() {}
+    private User() {}
 
-    public User(String username) {
-        this.username = username;
+    public static User getInstance() {
+        if (instance == null) {
+            return new User();
+        }
+        return instance;
     }
 
     public User(String username, List<Library> libraries) {
