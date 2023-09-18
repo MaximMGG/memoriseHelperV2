@@ -8,6 +8,11 @@ repositories {
 }
 
 dependencies {
+
+    //lombok for autogenerate code
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+
+
     // for parsing html
     implementation 'org.jsoup:jsoup:1.16.1'
 
