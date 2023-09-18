@@ -10,9 +10,12 @@ public class ClientTach {
     private FilePrepare filePrepare;
     private CrossRoad crossRoad;
     private Thread thread1;
+    private ClientWork clientWork;
     
     public void startApp() {
+        clientWork = new ClientWork();
         greetsAndSetUser();
+        redirectionAfterMainCrossroad(crossRoad.mainCrossroad());
     }
 
 
@@ -26,4 +29,14 @@ public class ClientTach {
         System.out.println("You can change words in your libraries or remove some translations/words");
         System.out.println("What do you prefer?");
     }
+
+    private void redirectionAfterMainCrossroad(int userChoose) {
+        switch (userChoose) {
+            case 1 -> {clientWork.createLibrary();}
+            case 2 -> {clientWork.showAllUseLibraris();}
+            case 3 -> {clientWork.createLibrary();}
+            case 4 -> {clientWork.startToMemorise();}
+        }
+    }
+
 }

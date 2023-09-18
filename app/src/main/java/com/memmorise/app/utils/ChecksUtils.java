@@ -27,6 +27,23 @@ public class ChecksUtils {
         return number;
     }
 
+    public static int writeInt(int from, int to) {
+        scan = new Scanner(System.in);
+        int number = -1;
+        try {
+            number = scan.nextInt();
+            if (number < from && number > to) {
+                throw new InputMismatchException();
+            }
+            scan.close();
+        } catch (InputMismatchException ex) {
+                scan.close();
+            System.out.println("You wrote not Number, please try agane");
+            writeInt();
+        }
+        return number;
+    }
+
     public static String writeString() {
         scan = new Scanner(System.in);
         String word = "";
