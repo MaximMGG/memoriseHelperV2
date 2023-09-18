@@ -10,13 +10,15 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ChecksUtils {
 
-    private static final Scanner scan = new Scanner(System.in);
+    private static Scanner scan;
     
     public static int writeInt() {
+        scan = new Scanner(System.in);
         int number = -1;
-        try (scan) {
+        try {
             number = scan.nextInt();
         } catch (InputMismatchException ex) {
+                scan.close();
             System.out.println("You wrote not Number, please try agane");
             writeInt();
         }
@@ -24,16 +26,18 @@ public class ChecksUtils {
     }
 
     public static String writeString() {
+        scan = new Scanner(System.in);
         String word = "";
-        try (scan) {
+        try {
             word = scan.nextLine();
-            Matcher m = Pattern.compile("[A-z]?").matcher(word);
+            Matcher m = Pattern.compile("^\\b[A-z]+$").matcher(word);
             if (m.find()) {
+                scan.close();
                 return word;
             } else {
+                scan.close();
                 throw new IllegalStateException();
             }
-
         } catch (IllegalStateException e) {
             System.out.println("You wrote not a String, please try agane");
             writeString();

@@ -24,14 +24,17 @@ public class ChecksUtilsTest {
     }
 
     @Test
-    void writeIntExceptionTest() {
-
-        ByteArrayInputStream bais = new ByteArrayInputStream("Yes".getBytes());
+    void writeStringTest() {
+        ByteArrayInputStream bais = new ByteArrayInputStream("Hello".getBytes());
         InputStream input = System.in;
         System.setIn(bais);
-        
-        assertThrows(IllegalStateException.class, () -> ChecksUtils.writeInt());
+        String expectedResult = "Hello";
+
+        String result = ChecksUtils.writeString();
+
+        assertTrue(result.equals(expectedResult));
 
         System.setIn(input);
+
     }
 }
