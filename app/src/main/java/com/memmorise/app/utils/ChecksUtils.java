@@ -1,6 +1,8 @@
 package com.memmorise.app.utils;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,5 +45,22 @@ public class ChecksUtils {
             writeString();
         }
         return word;
+    }
+
+    public List<String> getUserChoose(List<String> translations) {
+        scan = new Scanner(System.in);
+        List<String> userChoose = new ArrayList<>();
+
+        String[] buffer = scan.nextLine().split(", "); // 1, 2, Пока
+        for (String s : buffer) {
+            int number = 0;
+            try {
+                number = Integer.parseInt(s);
+                userChoose.add(translations.get(number - 1));
+            } catch (Exception e){
+                userChoose.add(s);
+            }
+        }
+        return userChoose;
     }
 }

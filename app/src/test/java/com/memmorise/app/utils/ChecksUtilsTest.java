@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.List;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ChecksUtilsTest {
@@ -36,5 +38,21 @@ public class ChecksUtilsTest {
 
         System.setIn(input);
 
+    }
+
+    @Test
+    void getUserChooseTest() {
+        List<String> translations = List.of("кот", "кошка", "котэ");
+        List<String> expectedResul = List.of("кот", "кошка", "котик");
+        ByteArrayInputStream bais = new ByteArrayInputStream("1, 2, котик".getBytes());
+        // ByteArrayInputStream bais = new ByteArrayInputStream("1, 2".getBytes());
+        InputStream in = System.in;
+        System.setIn(bais);
+
+        List<String> result = ChecksUtils.getUserChoose(translations);
+
+        Assertions.assertThat(result).isEqualTo(expectedResul);
+
+        System.setIn(in);
     }
 }
