@@ -8,9 +8,9 @@ public class DiskWorkerTest {
     
     @Test
     void setupTest() {
-        User user = new User("TestUser");
+        User user = User.getInstance();
         try {
-            new DiskWorker().setup(user);
+            new DiskWorker().setup();
         } catch (Exception e) {
             e.printStackTrace();
         }
