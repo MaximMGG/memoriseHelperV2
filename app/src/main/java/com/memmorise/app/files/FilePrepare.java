@@ -11,12 +11,19 @@ public class FilePrepare {
 
     public FilePrepare(User user) {
         this.user = user;
+        diskWorker = new DiskWorker(user);
         try {
-            diskWorker.setup(user);
+            diskWorker.setup();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public void setCurrntLibrary(Library library) {
+        this.currentLibrary = library;
+    }
+
+    public 
 
 
 

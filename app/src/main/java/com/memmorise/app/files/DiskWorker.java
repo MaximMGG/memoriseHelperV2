@@ -15,8 +15,12 @@ public class DiskWorker {
     private User user;
     private Library library;
 
-    public void setup(User user) throws IOException {
+    public DiskWorker(User user) {
         this.user = user;
+        this.library = user.getCurrentLibrary();
+    }
+
+    public void setup() throws IOException {
             checkExistingUserConfig();
             checkExistingUserLibraryDir();
             checkExistingCurrentUserLibraryDir();
@@ -25,6 +29,36 @@ public class DiskWorker {
             } else {
                 setUserLibraries();
             }
+    }
+
+    public Library prepareUserLibrary(Library lib) throws IOException {
+
+        if (lib.getLibraryContent() != null) {
+            return lib;
+        }
+
+        List<String> unMappedLibrary = Files.readAllLines(
+                            Path.of(Pathes.PATH_TO_USER_LIBRARIES + user.getUsername() + "Libraries/" + lib.getLibraryName() + ".txt"));
+        lib.setLibraryContent(unMappedLibrary);
+        return lib;
+    }
+
+    public void saveLibraryOnDisk(Library lib) {
+        lib.getLibraryContentByList().stream()
+                            .forEach(string -> {
+                                try {
+                                    Files.writeString(lib.getPathToLibrary(), string);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+    }
+
+    public Library getLibraryFromDisk(Library lib) throws IOException {
+        lib.setLibraryContent(
+            Files.readAllLines(lib.getPathToLibrary())
+        );
+        return lib;
     }
 
     private void setUserLibraries() throws IOException {
@@ -47,17 +81,13 @@ public class DiskWorker {
                 }
             }
         }
+        user.setLibraries(userLibraries);
     }
 
     public void setLibrary(Library library) throws IOException {
         this.library = library;
-        createLibrary();
     }
 
-    private void createLibrary() throws IOException {
-        Files.createFile(Path.of(Pathes.PATH_TO_USER_LIBRARIES + user.getUsername() + "Libraries/" +
-                library.getLibraryName() + ".txt"));
-    }
 
     private boolean isNewUser() throws IOException {
 
@@ -105,7 +135,6 @@ public class DiskWorker {
 
     public static void main(String[] args) {
        try {
-        new DiskWorker().setup(new User("TestUser"));
     } catch (Exception e) {
         e.printStackTrace();
     }

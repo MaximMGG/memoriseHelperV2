@@ -1,14 +1,19 @@
 package com.memmorise.app.library;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.memmorise.app.files.Pathes;
+import com.memmorise.app.user.User;
+
 public class Library {
 
     private String libraryName;
     private Map<String, String> libraryContent;
+    private Path pathToLibrary;
 
     public Library() {}
 
@@ -19,6 +24,15 @@ public class Library {
     public Library(String libraryName, Map<String, String> libraryContent) {
         this.libraryName = libraryName;
         this.libraryContent = libraryContent;
+    }
+
+    public void setPathToLibrary(User user) {
+        pathToLibrary =
+                Path.of(Pathes.PATH_TO_USER_LIBRARIES + user.getUsername() + "Libraries/" + libraryName + ".txt");
+    }
+
+    public Path getPathToLibrary() {
+        return pathToLibrary;
     }
 
     public String getLibraryName() {
