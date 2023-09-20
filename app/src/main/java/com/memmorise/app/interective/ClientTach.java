@@ -6,7 +6,7 @@ import com.memmorise.app.utils.ChecksUtils;
 
 public class ClientTach {
 
-    private User user = User.getInstance();
+    private User user;
     private FilePrepare filePrepare;
     private Thread thread1;
     private ClientWork clientWork;
@@ -31,6 +31,7 @@ public class ClientTach {
 
     private void greetsAndSetUser() {
         System.out.println(ClientWordBufer.SEY_HELLO_TO_USER);
+        user = User.getInstance();
         user.setUsername(ChecksUtils.writeString());
         thread1 = new Thread(() -> {filePrepare = new FilePrepare();});
         thread1.start();

@@ -29,18 +29,6 @@ public class DiskWorker {
             }
     }
 
-    public Library prepareUserLibrary(Library lib) throws IOException {
-
-        if (lib.getLibraryContent() != null) {
-            return lib;
-        }
-
-        List<String> unMappedLibrary = Files.readAllLines(
-                            Path.of(Pathes.PATH_TO_USER_LIBRARIES + user.getUsername() + "Libraries/" + lib.getLibraryName() + ".txt"));
-        lib.setLibraryContent(unMappedLibrary);
-        return lib;
-    }
-
     public void saveLibraryOnDisk(Library lib) {
         lib.getLibraryContentByList().stream()
                             .forEach(string -> {
@@ -53,9 +41,14 @@ public class DiskWorker {
     }
 
     public Library getLibraryFromDisk(Library lib) throws IOException {
+        if (lib == null) {
+            return lib;
+        }
+
         lib.setLibraryContent(
             Files.readAllLines(lib.getPathToLibrary())
         );
+
         return lib;
     }
 
@@ -116,20 +109,18 @@ public class DiskWorker {
         } else {
             Files.createDirectory(Path.of("resources/"));
             Files.createFile(Path.of(Pathes.PATH_TO_USER_CONFIG));
-            wrightUserInfo();
         }
     }
 
     private void wrightUserInfo() throws IOException {
-        String userInfo = "user:%s;userLibraries:".formatted(user.getUsername());
+        String userInfo = "user:%s;userLibraries:\n".formatted(user.getUsername());
         Files.writeString(Path.of(Pathes.PATH_TO_USER_CONFIG), userInfo, StandardOpenOption.APPEND);
     }
 
 
-    public static void main(String[] args) {
-       try {
-    } catch (Exception e) {
-        e.printStackTrace();
+    private void writeLibraryInUserInfo() {
+
+
     }
-    }
+
 }

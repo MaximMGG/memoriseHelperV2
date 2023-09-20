@@ -93,6 +93,7 @@ public class CreateLibraryStarter {
                 e.printStackTrace();
             }
         });
+        thread1.start();
         System.out.println("Checking your word...");
         Thread.currentThread().join();
         System.out.println("Here is traslations of your word -> " + word );

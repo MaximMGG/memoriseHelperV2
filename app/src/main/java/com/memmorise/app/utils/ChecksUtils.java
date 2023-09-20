@@ -20,7 +20,6 @@ public class ChecksUtils {
         try {
             number = scan.nextInt();
         } catch (InputMismatchException ex) {
-                scan.close();
             System.out.println("You wrote not Number, please try agane");
             writeInt();
         }
@@ -35,9 +34,7 @@ public class ChecksUtils {
             if (number < from && number > to) {
                 throw new InputMismatchException();
             }
-            scan.close();
         } catch (InputMismatchException ex) {
-                scan.close();
             System.out.println("You wrote not Number, please try agane");
             writeInt();
         }
@@ -51,10 +48,8 @@ public class ChecksUtils {
             word = scan.nextLine();
             Matcher m = Pattern.compile("^\\b[A-z]+$").matcher(word);
             if (m.find()) {
-                scan.close();
                 return word;
             } else {
-                scan.close();
                 throw new IllegalStateException();
             }
         } catch (IllegalStateException e) {
