@@ -113,7 +113,7 @@ public class DiskWorker {
     }
 
     private void wrightUserInfo() throws IOException {
-        String userInfo = "user:%s;userLibraries:\n".formatted(user.getUsername());
+        String userInfo = "user:%s;libraries:\n".formatted(user.getUsername());
         Files.writeString(Path.of(Pathes.PATH_TO_USER_CONFIG), userInfo, StandardOpenOption.APPEND);
     }
 
