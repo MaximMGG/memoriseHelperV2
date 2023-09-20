@@ -17,7 +17,7 @@ public class RuEnTranslator implements Translator{
     @Override
     public List<String> getTranclations(String word) throws IOException {
         List<String> list = new ArrayList<>();
-        Elements elements = createConnection(word)
+        Elements elements = createConnection(URL_RU_EN_TRANSLATIONS, word)
                 .select("body > div[id=wrapper] > section > div[class=left-content] > section[id=top-results]" +
                         " > div[id=translations-content] > a > span[class=display-term]");
         int index = elements.size() >= 5 ? 5 : elements.size();
@@ -30,15 +30,15 @@ public class RuEnTranslator implements Translator{
     @Override
     public String checkWord(String word) throws IOException {
 
-        Document doc = createConnection(URL_GOOGLE_CHECK + word);
+        Document doc = createConnection(URL_GOOGLE_CHECK, word);
         Elements el = doc.select("body > div[class=main] > div > div[class=GyAeWb] > div[class=s6JM6d] > div[id=taw]" +
                 " > div[id=oFNiHe] > p > a > b > i");
         return el.text();
 
     }
 
-    private Document createConnection(String word) throws IOException {
-        return Jsoup.connect(URL_RU_EN_TRANSLATIONS + word).get();
+    private Document createConnection(String url, String word) throws IOException {
+        return Jsoup.connect(url + word).get();
     }
     
 }

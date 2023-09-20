@@ -1,7 +1,6 @@
 package com.memmorise.app.interective;
 
 import java.util.List;
-import java.util.Scanner;
 
 import com.memmorise.app.tranlations.Lenguages;
 import com.memmorise.app.utils.ChecksUtils;
@@ -11,11 +10,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class InterectiveUtils {
     
-    private static Scanner scan;
 
 
     public static Lenguages getChoosenLenguage() {
-        scan = new Scanner(System.in);
         switch (ChecksUtils.writeInt(1, 2)) {
             case 1 -> {return Lenguages.ENGLISH;}
             case 2 -> {return Lenguages.RUSSIAN;}
@@ -28,5 +25,18 @@ public class InterectiveUtils {
         for(String s : translations) {
             System.out.println(i++ + ". " + s);
         }
+    }
+
+    public void awesomePrinting(String line) {
+        String[] buf = line.split("");
+        for(String s : buf) {
+            try {
+                Thread.sleep(50);
+                System.out.print(s);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println();
     }
 }

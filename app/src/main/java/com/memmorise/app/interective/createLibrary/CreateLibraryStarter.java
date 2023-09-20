@@ -38,15 +38,17 @@ public class CreateLibraryStarter {
         diskWorker = new DiskWorker();
         user = User.getInstance();
         currentLibrary = library.getLibraryContent();
+        library.setPathToLibrary(user);
         setLenguages();
         setTranslator();
     }
 
 
     public void startAddingWords() throws IOException {
-        System.out.println("Please write word or write '0' for stop writing words");
-        String word = ChecksUtils.writeString();
-        while (!word.equals("0")) {
+        while (true) {
+            System.out.println("Please write word or write '0' for stop writing words");
+            String word = ChecksUtils.writeString();
+            if (word.equals("0")) break;
             try {
                 addWord(word);
             } catch (InterruptedException e) {
@@ -84,21 +86,23 @@ public class CreateLibraryStarter {
         thread1 = new Thread(() -> {
             try {
                 String checkWord = translator.checkWord(word);
-                if (!checkWord.equals(word)) {
+                if (!checkWord.equals(word) && !checkWord.isEmpty()) {
                     System.out.println("Maybe you mean " + checkWord + " ?");
                     if (ChecksUtils.yesNo()) {
                        translations = translator.getTranclations(checkWord);
                     } else {
                        translations = translator.getTranclations(word);
                     }
+                } else {
+                    translations = translator.getTranclations(word);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
         thread1.start();
-        System.out.println("Checking your word...");
-        Thread.currentThread().join();
+        InterectiveUtils.awesomePrinting("Checking your word...");
+        thread1.join();
         
         boolean agreed = false;
         String concatinatedTranslations = "";
@@ -110,7 +114,7 @@ public class CreateLibraryStarter {
             System.out.println("You can chose one or more translations, or write you own");
             System.out.println("For example -> 1, 3, my own translation");
             concatinatedTranslations = ChecksUtils.getUserChoose(translations);
-            System.out.println("Your word -> " + word + "translations -> " + concatinatedTranslations);
+            System.out.println("Your word -> " + word + " translations -> " + concatinatedTranslations);
             System.out.println("Write 1 if you want to save result or 2 if your want to write anather translations");
             if (ChecksUtils.yesNo()) {
                 agreed = true;

@@ -33,6 +33,9 @@ public class UserInfo {
 
 
     public void addLibraryInUserInfo(String username, String library) {
+        if (userInfo == null) {
+            userInfo = new HashMap<>();
+        }
         List<String> userLibraies = userInfo.get(username);
 
         if (userLibraies == null) {
