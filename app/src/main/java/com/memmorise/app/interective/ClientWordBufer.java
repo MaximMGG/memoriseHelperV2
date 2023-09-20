@@ -16,6 +16,11 @@ public class ClientWordBufer {
     public static final String LIST_OF_LENGUAGES = """
                     1.English
                     2.Russian
-            
+            """;
+    public static final String SEY_GOODBYE_TO_USER = """
+        ***********************************************************************
+        ***************************Goodbye diar %s*****************************
+        **************Hope you engoy Memorise Helper, see you soon*************
+        ***********************************************************************
             """;
 }

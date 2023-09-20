@@ -8,14 +8,24 @@ public class ClientTach {
 
     private User user = User.getInstance();
     private FilePrepare filePrepare;
-    private CrossRoad crossRoad;
     private Thread thread1;
     private ClientWork clientWork;
+    private boolean firstVisit = true;
+    private static final ClientTach instance = new ClientTach();
+
+    private ClientTach(){}
+
+    public static ClientTach getInstance() {
+        return instance;
+    }
     
     public void startApp() {
         clientWork = new ClientWork();
-        greetsAndSetUser();
-        redirectionAfterMainCrossroad(crossRoad.mainCrossroad());
+        if (firstVisit) {
+            greetsAndSetUser();
+            firstVisit = false;
+        }
+        redirectionAfterMainCrossroad(CrossRoad.mainCrossroad());
     }
 
 
