@@ -9,13 +9,16 @@ import java.util.List;
 
 import com.memmorise.app.library.Library;
 import com.memmorise.app.user.User;
+import com.memmorise.app.user.UserInfo;
 
 public class DiskWorker {
 
     private User user;
+    private UserInfo userInfo;
 
     public DiskWorker() {
         this.user = User.getInstance();
+        userInfo = new UserInfo();
     }
 
     public void setup() throws IOException {
@@ -27,6 +30,7 @@ public class DiskWorker {
             } else {
                 setUserLibraries();
             }
+        userInfo.setUserInfo(getUserConfigFromDidk());
     }
 
     public void saveLibraryOnDisk(Library lib) {
@@ -53,22 +57,16 @@ public class DiskWorker {
     }
 
     private void setUserLibraries() throws IOException {
-
         List<String> userInfo = Files.readAllLines(Path.of(Pathes.PATH_TO_USER_CONFIG));
-        String usersName = "user:" + user.getUsername();
-        String[] userLib;
         List<Library> userLibraries = new ArrayList<>();
 
-        for(String line : userInfo) {
-            String[] lines = line.split(";");
-            if (lines[0].equals(usersName)) {
-                userLib = lines[1].split(",");
-                for (int i = 0; i < userLib.length; i++) {
-                    if (i == 0) {
-                        userLibraries.add(new Library(userLib[i].split(":")[1]));
-                    } else {
-                        userLibraries.add(new Library(userLib[i]));
-                    }
+        for (String line : userInfo) {
+            line = line.replace("user:", "");
+            line = line.replace(";libraries", ",");
+            String[] buffer = line.split(",");
+            if (buffer[0].equals(user.getUsername()) && buffer[1] != null) {
+                for (int i = 0; i < buffer.length; i++) {
+                   userLibraries.add(new Library(buffer[i]));
                 }
             }
         }
@@ -117,10 +115,13 @@ public class DiskWorker {
         Files.writeString(Path.of(Pathes.PATH_TO_USER_CONFIG), userInfo, StandardOpenOption.APPEND);
     }
 
-
-    private void writeLibraryInUserInfo() {
-
-
+    private List<String> getUserConfigFromDidk() throws IOException {
+        return Files.readAllLines(Path.of(Pathes.PATH_TO_USER_CONFIG));
     }
 
+
+    private void writeLibraryInUserConfig(Library library) throws IOException {
+        userInfo.addLibraryInUserInfo(user.getUsername(), library.getLibraryName());
+        Files.write(Path.of(Pathes.PATH_TO_USER_CONFIG), userInfo.getUserInfoForDiskWrite());
+    }
 }
