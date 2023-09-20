@@ -1,5 +1,7 @@
 package com.memmorise.app.interective;
 
+import java.io.IOException;
+
 import com.memmorise.app.interective.createLibrary.CreateLibraryStarter;
 import com.memmorise.app.library.Library;
 import com.memmorise.app.utils.ChecksUtils;
@@ -8,7 +10,7 @@ public class ClientWork {
 
     private CreateLibraryStarter libraryStrater;
 
-    public void createLibrary() {
+    public void createLibrary() throws IOException {
         Library library = new Library();
         libraryStrater = new CreateLibraryStarter();
         System.out.println("So let's start, please write name of library");

@@ -15,15 +15,19 @@ public class Library {
     private Map<String, String> libraryContent;
     private Path pathToLibrary;
 
-    public Library() {}
+    public Library() {
+        libraryContent = new HashMap<>();
+    }
 
     public Library(String libraryName) {
         this.libraryName = libraryName;
+        libraryContent = new HashMap<>();
     }
 
     public Library(String libraryName, Map<String, String> libraryContent) {
         this.libraryName = libraryName;
-        this.libraryContent = libraryContent;
+        this.libraryContent = libraryContent == null ? new HashMap<>() : libraryContent;
+        
     }
 
     public void setPathToLibrary(User user) {

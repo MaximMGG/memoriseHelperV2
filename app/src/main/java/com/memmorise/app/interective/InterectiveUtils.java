@@ -1,5 +1,6 @@
 package com.memmorise.app.interective;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.memmorise.app.tranlations.Lenguages;
@@ -19,6 +20,13 @@ public class InterectiveUtils {
             case 1 -> {return Lenguages.ENGLISH;}
             case 2 -> {return Lenguages.RUSSIAN;}
             default -> {return null;}
+        }
+    }
+
+    public static void printTranslations(List<String> translations) {
+        int i = 1;
+        for(String s : translations) {
+            System.out.println(i++ + ". " + s);
         }
     }
 }

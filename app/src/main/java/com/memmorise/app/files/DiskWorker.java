@@ -33,15 +33,9 @@ public class DiskWorker {
         userInfo.setUserInfo(getUserConfigFromDidk());
     }
 
-    public void saveLibraryOnDisk(Library lib) {
-        lib.getLibraryContentByList().stream()
-                            .forEach(string -> {
-                                try {
-                                    Files.writeString(lib.getPathToLibrary(), string);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
+    public void saveLibraryOnDisk(Library lib) throws IOException {
+        Files.write(lib.getPathToLibrary(), lib.getLibraryContentByList());
+        writeLibraryInUserConfig(lib);
     }
 
     public Library getLibraryFromDisk(Library lib) throws IOException {

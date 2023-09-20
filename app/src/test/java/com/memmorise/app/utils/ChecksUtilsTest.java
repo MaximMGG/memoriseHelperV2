@@ -44,14 +44,15 @@ public class ChecksUtilsTest {
     void getUserChooseTest() {
         List<String> translations = List.of("кот", "кошка", "котэ");
         List<String> expectedResul = List.of("кот", "кошка", "котик");
+        String exResult = "кот, кошка, котик";
         ByteArrayInputStream bais = new ByteArrayInputStream("1, 2, котик".getBytes());
         // ByteArrayInputStream bais = new ByteArrayInputStream("1, 2".getBytes());
         InputStream in = System.in;
         System.setIn(bais);
 
-        List<String> result = ChecksUtils.getUserChoose(translations);
+        String result = ChecksUtils.getUserChoose(translations);
 
-        Assertions.assertThat(result).isEqualTo(expectedResul);
+        Assertions.assertThat(result).isEqualTo(exResult);
 
         System.setIn(in);
     }

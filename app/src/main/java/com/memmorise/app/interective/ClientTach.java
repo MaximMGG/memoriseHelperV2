@@ -1,5 +1,7 @@
 package com.memmorise.app.interective;
 
+import java.io.IOException;
+
 import com.memmorise.app.files.FilePrepare;
 import com.memmorise.app.user.User;
 import com.memmorise.app.utils.ChecksUtils;
@@ -25,7 +27,11 @@ public class ClientTach {
             greetsAndSetUser();
             firstVisit = false;
         }
-        redirectionAfterMainCrossroad(CrossRoad.mainCrossroad());
+        try {
+            redirectionAfterMainCrossroad(CrossRoad.mainCrossroad());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -41,7 +47,7 @@ public class ClientTach {
         System.out.println("What do you prefer?");
     }
 
-    private void redirectionAfterMainCrossroad(int userChoose) {
+    private void redirectionAfterMainCrossroad(int userChoose) throws IOException {
         switch (userChoose) {
             case 1 -> {clientWork.createLibrary();}
             case 2 -> {clientWork.showAllUseLibraris();}

@@ -2,6 +2,7 @@ package com.memmorise.app.interective.createLibrary;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import com.memmorise.app.files.DiskWorker;
 import com.memmorise.app.interective.ClientTach;
@@ -24,6 +25,7 @@ public class CreateLibraryStarter {
     private Library library;
     private DiskWorker diskWorker;
     private User user;
+    private Map<String, String> currentLibrary;
 
     private Thread thread1;
 
@@ -35,26 +37,26 @@ public class CreateLibraryStarter {
         clientTach = ClientTach.getInstance();
         diskWorker = new DiskWorker();
         user = User.getInstance();
+        currentLibrary = library.getLibraryContent();
         setLenguages();
         setTranslator();
     }
 
 
-    public void startAddingWords() {
+    public void startAddingWords() throws IOException {
         System.out.println("Please write word or write '0' for stop writing words");
         String word = ChecksUtils.writeString();
-        if (word.equals("0")) {
-            createLibraryRedirection(CrossRoad.createLibraryCrossroad());
-        } else{
+        while (!word.equals("0")) {
             try {
                 addWord(word);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        createLibraryRedirection(CrossRoad.createLibraryCrossroad());
     }
 
-    public void createLibraryRedirection(int index) {
+    public void createLibraryRedirection(int index) throws IOException {
         switch (index) {
             case 1 -> {
                 diskWorker.saveLibraryOnDisk(library);
@@ -78,6 +80,7 @@ public class CreateLibraryStarter {
     }
 
     private void addWord(String word) throws InterruptedException {
+
         thread1 = new Thread(() -> {
             try {
                 String checkWord = translator.checkWord(word);
@@ -96,8 +99,26 @@ public class CreateLibraryStarter {
         thread1.start();
         System.out.println("Checking your word...");
         Thread.currentThread().join();
-        System.out.println("Here is traslations of your word -> " + word );
+        
+        boolean agreed = false;
+        String concatinatedTranslations = "";
 
+        while (!agreed) {
+
+            System.out.println("Here is traslations of your word -> " + word);
+            InterectiveUtils.printTranslations(translations);
+            System.out.println("You can chose one or more translations, or write you own");
+            System.out.println("For example -> 1, 3, my own translation");
+            concatinatedTranslations = ChecksUtils.getUserChoose(translations);
+            System.out.println("Your word -> " + word + "translations -> " + concatinatedTranslations);
+            System.out.println("Write 1 if you want to save result or 2 if your want to write anather translations");
+            if (ChecksUtils.yesNo()) {
+                agreed = true;
+            } else {
+                System.out.println("Okey let's do it agane");
+            }
+        }
+        currentLibrary.put(word, concatinatedTranslations);
     }
 
     private void setLenguages() {
@@ -110,6 +131,7 @@ public class CreateLibraryStarter {
         if (from == to) {
             System.out.println("Sorry, we can't tranlate from the same laguage, please write agane");
         }
+        System.out.println("We translate from : " + from.name() + "to : " + to.name() );
     }
 
 

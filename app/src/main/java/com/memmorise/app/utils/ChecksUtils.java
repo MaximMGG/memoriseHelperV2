@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import lombok.experimental.UtilityClass;
 
@@ -46,6 +47,9 @@ public class ChecksUtils {
         String word = "";
         try {
             word = scan.nextLine();
+
+            if (word.equals("0")) return word;
+
             Matcher m = Pattern.compile("^\\b[A-z]+$").matcher(word);
             if (m.find()) {
                 return word;
@@ -59,7 +63,7 @@ public class ChecksUtils {
         return word;
     }
 
-    public static List<String> getUserChoose(List<String> translations) {
+    public static String getUserChoose(List<String> translations) {
         scan = new Scanner(System.in);
         List<String> userChoose = new ArrayList<>();
 
@@ -73,7 +77,10 @@ public class ChecksUtils {
                 userChoose.add(s);
             }
         }
-        return userChoose;
+        return userChoose.stream()
+                            .map(x -> x)
+                            .collect(Collectors
+                            .joining(", "));
     }
 
     public static boolean yesNo() {
