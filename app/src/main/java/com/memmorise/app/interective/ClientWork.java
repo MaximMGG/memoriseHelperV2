@@ -1,9 +1,12 @@
 package com.memmorise.app.interective;
 
+import com.memmorise.app.interective.createLibrary.CreateLibraryStarter;
 import com.memmorise.app.library.Library;
 import com.memmorise.app.utils.ChecksUtils;
 
 public class ClientWork {
+
+    private CreateLibraryStarter libraryStrater;
 
     public void createLibrary() {
         Library library = new Library();
