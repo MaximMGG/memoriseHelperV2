@@ -34,8 +34,8 @@ public class ClientTach {
         user.setUsername(ChecksUtils.writeString());
         thread1 = new Thread(() -> {filePrepare = new FilePrepare();});
         thread1.start();
-        System.out.println("Hello diar " + user.getUsername() + "greetings you in Memorise Helper");
-        System.out.println("Here you can create you own libraries with word and their translations, you can memorise words from your existing libraries");
+        System.out.println("Hello diar " + user.getUsername() + " greetings you in Memorise Helper");
+        System.out.println("Here you can create you own libraries with word and their translations.\nYou can memorise words from your existing libraries");
         System.out.println("You can change words in your libraries or remove some translations/words");
         System.out.println("What do you prefer?");
     }

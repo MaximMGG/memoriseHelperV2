@@ -80,4 +80,10 @@ public class ChecksUtils {
         }
         return userChoose;
     }
+
+    public static boolean yesNo() {
+        System.out.println("1. Yes/2. No");
+        int i = writeInt(1, 2);
+        return i == 1;
+    }
 }

@@ -1,5 +1,8 @@
 package com.memmorise.app.interective.createLibrary;
 
+import java.io.IOException;
+import java.util.List;
+
 import com.memmorise.app.files.DiskWorker;
 import com.memmorise.app.interective.ClientTach;
 import com.memmorise.app.interective.ClientWordBufer;
@@ -22,6 +25,10 @@ public class CreateLibraryStarter {
     private DiskWorker diskWorker;
     private User user;
 
+    private Thread thread1;
+
+    private List<String> translations;
+
     
     public void createLibrary(Library library) {
         this.library = library;
@@ -38,6 +45,12 @@ public class CreateLibraryStarter {
         String word = ChecksUtils.writeString();
         if (word.equals("0")) {
             createLibraryRedirection(CrossRoad.createLibraryCrossroad());
+        } else{
+            try {
+                addWord(word);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -64,7 +77,25 @@ public class CreateLibraryStarter {
         }
     }
 
-    private void addWord(String word) {
+    private void addWord(String word) throws InterruptedException {
+        thread1 = new Thread(() -> {
+            try {
+                String checkWord = translator.checkWord(word);
+                if (!checkWord.equals(word)) {
+                    System.out.println("Maybe you mean " + checkWord + " ?");
+                    if (ChecksUtils.yesNo()) {
+                       translations = translator.getTranclations(checkWord);
+                    } else {
+                       translations = translator.getTranclations(word);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        System.out.println("Checking your word...");
+        Thread.currentThread().join();
+        System.out.println("Here is traslations of your word -> " + word );
 
     }
 
