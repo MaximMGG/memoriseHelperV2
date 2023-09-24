@@ -132,6 +132,7 @@ public class CreateLibraryStarter {
         System.out.println("Please write to lenguage ");
         Lenguages.printAllLenguaes();
         to = InterectiveUtils.getChoosenLenguage();
+        library.setLenguages(from, to);
         if (from == to) {
             System.out.println("Sorry, we can't tranlate from the same laguage, please write agane");
         }

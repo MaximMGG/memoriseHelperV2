@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.memmorise.app.files.Pathes;
+import com.memmorise.app.tranlations.Lenguages;
 import com.memmorise.app.user.User;
 
 public class Library {
@@ -14,6 +15,9 @@ public class Library {
     private String libraryName;
     private Map<String, String> libraryContent;
     private Path pathToLibrary;
+    private Lenguages from;
+    private Lenguages to;
+
 
     public Library() {
         libraryContent = new HashMap<>();
@@ -28,6 +32,15 @@ public class Library {
         this.libraryName = libraryName;
         this.libraryContent = libraryContent == null ? new HashMap<>() : libraryContent;
         
+    }
+
+    public void setLenguages(Lenguages from, Lenguages to) {
+        this.from = from;
+        this.to = to;
+    }
+
+    public Lenguages[] getLenguages() {
+        return new Lenguages[]{from, to};
     }
 
     public void setPathToLibrary(User user) {

@@ -19,7 +19,7 @@ public class ConnectionManager {
         loadProperties();
     }
 
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(get(DB_URL), get(DB_NAME), get(DB_PASSWORD));
     }
 

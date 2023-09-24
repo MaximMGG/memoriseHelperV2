@@ -1,48 +1,29 @@
 package com.memmorise.app.database;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.memmorise.app.tranlations.Lenguages;
+
 public class DBRunner {
 
 
     private String word;
     private String translations;
 
-     private String insertRuWord = """
-                insert into ru_en_translations(ru_word, en_word)
-                values(?, ?)
-            """;
+    
+    private String checkWord;
 
-    private String checkInsertRuWord = """
-            select
-                ru_word,
-                en_word
-            from ru_en_translations
-            where ru_word = ?
-            """;
+    public void checkTranslation(Lenguages[] lengs, String word, String translations) throws SQLException {
 
-    private String insertEnWord = """
-            insert into en_ru_translations(en_word, ru_word)
-            values(?, ?)
-            """;
+        checkWord = Querries.getCheckWordQuerry(lengs[0], lengs[1]);
 
-    private String checkInsertEnWord = """
-                select
-                    en_word,
-                    ru_word
-                from en_ru_translations
-                where en_word = ?
-            """;
+        try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(checkWord)) {
+            statement.setString(1, word);
+            ResultSet res = statement.executeQuery();
+        }
 
-    private String updateRuWord = """
-            update ru_en_translations
-            set
-                en_word = ?
-            where ru_word = ?
-            """;
-
-    private String updateEnWord = """
-           update en_ru_tranlations
-           set ru_word = ?
-           where en_word = ?
-            """;   
+    }
 
 }

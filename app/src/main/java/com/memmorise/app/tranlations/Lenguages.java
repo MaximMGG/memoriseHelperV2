@@ -1,7 +1,18 @@
 package com.memmorise.app.tranlations;
 
 public enum Lenguages {
-    ENGLISH, RUSSIAN;
+    ENGLISH ("en"),
+    RUSSIAN ("ru");
+
+    private String leng;
+
+    Lenguages(String leng){
+        this.leng = leng;
+    };
+
+    public String getLeng() {
+        return leng;
+    }
 
 
     public static void printAllLenguaes() {
