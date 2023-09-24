@@ -1,6 +1,7 @@
 package com.memmorise.app.interective;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import com.memmorise.app.interective.createLibrary.CreateLibraryStarter;
 import com.memmorise.app.library.Library;
@@ -12,7 +13,7 @@ public class ClientWork {
     private CreateLibraryStarter libraryStrater;
     private User user;
 
-    public void createLibrary() throws IOException {
+    public void createLibrary() throws IOException, SQLException {
         user = User.getInstance();
         Library library = new Library();
         libraryStrater = new CreateLibraryStarter();

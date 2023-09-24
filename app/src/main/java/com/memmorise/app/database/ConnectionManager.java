@@ -30,7 +30,7 @@ public class ConnectionManager {
 
 
     private static void loadProperties() {
-        try (InputStream resources = ConnectionManager.class.getResourceAsStream("application.properties")) {
+        try (InputStream resources = ConnectionManager.class.getResourceAsStream("resources/application.properties")) {
             properties.load(resources);
         } catch (IOException e) {
             throw new RuntimeException();

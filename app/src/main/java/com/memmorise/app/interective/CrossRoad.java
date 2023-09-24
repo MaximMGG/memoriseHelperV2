@@ -13,7 +13,8 @@ public class CrossRoad {
         System.out.println("2. Show all your libraries");
         System.out.println("3. Change existing library.");
         System.out.println("4. Learn words from library.");
-        return ChecksUtils.writeInt(1, 4);
+        System.out.println("5. Exit.");
+        return ChecksUtils.writeInt(1, 5);
     }
 
     public static int createLibraryCrossroad() {

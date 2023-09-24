@@ -1,9 +1,11 @@
 package com.memmorise.app.interective.createLibrary;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.memmorise.app.database.DBRunner;
 import com.memmorise.app.files.DiskWorker;
 import com.memmorise.app.interective.ClientTach;
 import com.memmorise.app.interective.ClientWordBufer;
@@ -29,6 +31,7 @@ public class CreateLibraryStarter {
 
     private Thread thread1;
 
+    private String word;
     private List<String> translations;
 
     
@@ -44,13 +47,13 @@ public class CreateLibraryStarter {
     }
 
 
-    public void startAddingWords() throws IOException {
+    public void startAddingWords() throws IOException, SQLException {
         while (true) {
             System.out.println("Please write word or write '0' for stop writing words");
-            String word = ChecksUtils.writeString();
+            word = ChecksUtils.writeString();
             if (word.equals("0")) break;
             try {
-                addWord(word);
+                addWord();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -58,7 +61,7 @@ public class CreateLibraryStarter {
         createLibraryRedirection(CrossRoad.createLibraryCrossroad());
     }
 
-    public void createLibraryRedirection(int index) throws IOException {
+    public void createLibraryRedirection(int index) throws IOException, SQLException {
         switch (index) {
             case 1 -> {
                 diskWorker.saveLibraryOnDisk(library);
@@ -81,31 +84,22 @@ public class CreateLibraryStarter {
         }
     }
 
-    private void addWord(String word) throws InterruptedException {
+    private void addWord() throws InterruptedException, SQLException {
 
-        thread1 = new Thread(() -> {
-            try {
-                String checkWord = translator.checkWord(word);
-                if (!checkWord.equals(word) && !checkWord.isEmpty()) {
-                    System.out.println("Maybe you mean " + checkWord + " ?");
-                    if (ChecksUtils.yesNo()) {
-                       translations = translator.getTranclations(checkWord);
-                    } else {
-                       translations = translator.getTranclations(word);
-                    }
-                } else {
-                    translations = translator.getTranclations(word);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        thread1.start();
-        InterectiveUtils.awesomePrinting("Checking your word...");
-        thread1.join();
-        
-        boolean agreed = false;
-        String concatinatedTranslations = "";
+        DBRunner db = new DBRunner();
+        List<String> tranlationsFromDB = db.getTranlations(library.getLenguages(), word);
+        if (tranlationsFromDB == null) {
+            System.out.println("Going to the web for find trablations");
+            thread1 = new Thread(() -> word = setTranlations(word));
+            thread1.start();
+            InterectiveUtils.awesomePrinting("Checking your word...");
+            thread1.join();
+        } else {
+            translations = tranlationsFromDB;
+        }
+
+            boolean agreed = false;
+            String concatinatedTranslations = "";
 
         while (!agreed) {
 
@@ -146,7 +140,24 @@ public class CreateLibraryStarter {
         }
     }
 
-    private void saveLibrary() {
-
+    private String setTranlations(String word) {
+        try {
+            String checkWord = translator.checkWord(word);
+            if (!checkWord.equals(word) && !checkWord.isEmpty()) {
+                System.out.println("Maybe you mean " + checkWord + " ?");
+                if (ChecksUtils.yesNo()) {
+                    translations = translator.getTranclations(checkWord);
+                    word = checkWord;
+                } else {
+                    translations = translator.getTranclations(word);
+                }
+            } else {
+                translations = translator.getTranclations(word);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return word;
     }
+
 }

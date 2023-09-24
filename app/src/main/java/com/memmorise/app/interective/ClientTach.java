@@ -1,6 +1,7 @@
 package com.memmorise.app.interective;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import com.memmorise.app.files.FilePrepare;
 import com.memmorise.app.user.User;
@@ -21,7 +22,7 @@ public class ClientTach {
         return instance;
     }
     
-    public void startApp() {
+    public void startApp() throws SQLException {
         clientWork = new ClientWork();
         if (firstVisit) {
             greetsAndSetUser();
@@ -47,12 +48,13 @@ public class ClientTach {
         System.out.println("What do you prefer?");
     }
 
-    private void redirectionAfterMainCrossroad(int userChoose) throws IOException {
+    private void redirectionAfterMainCrossroad(int userChoose) throws IOException, SQLException {
         switch (userChoose) {
             case 1 -> {clientWork.createLibrary();}
             case 2 -> {clientWork.showAllUseLibraris();}
             case 3 -> {clientWork.changeLibrary();}
             case 4 -> {clientWork.startToMemorise();}
+            case 5 -> {ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername());}
         }
     }
 
