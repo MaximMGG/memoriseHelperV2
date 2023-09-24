@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.memmorise.app.database.DBRunner;
 import com.memmorise.app.files.DiskWorker;
@@ -33,6 +34,7 @@ public class CreateLibraryStarter {
 
     private String word;
     private List<String> translations;
+    private List<String> translationsFromDB;
 
     
     public void createLibrary(Library library) {
@@ -87,19 +89,19 @@ public class CreateLibraryStarter {
     private void addWord() throws InterruptedException, SQLException {
 
         DBRunner db = new DBRunner();
-        List<String> tranlationsFromDB = db.getTranlations(library.getLenguages(), word);
-        if (tranlationsFromDB == null) {
+        translationsFromDB = db.getTranlations(library.getLenguages(), word);
+
+        if (translationsFromDB == null) {
             System.out.println("Going to the web for find trablations");
             thread1 = new Thread(() -> word = setTranlations(word));
             thread1.start();
             InterectiveUtils.awesomePrinting("Checking your word...");
             thread1.join();
         } else {
-            translations = tranlationsFromDB;
+            translations = translationsFromDB;
         }
 
             boolean agreed = false;
-            String concatinatedTranslations = "";
 
         while (!agreed) {
 
@@ -107,16 +109,25 @@ public class CreateLibraryStarter {
             InterectiveUtils.printTranslations(translations);
             System.out.println("You can chose one or more translations, or write you own");
             System.out.println("For example -> 1, 3, my own translation");
-            concatinatedTranslations = ChecksUtils.getUserChoose(translations);
+
+            final String concatinatedTranslations = ChecksUtils.getUserChoose(translations);
+
             System.out.println("Your word -> " + word + " translations -> " + concatinatedTranslations);
             System.out.println("Write 1 if you want to save result or 2 if your want to write anather translations");
+
+            thread1 = new Thread(() -> {
+                updateOrInsertTranslationsInDB(concatinatedTranslations);
+            });
+
+            thread1.start();
+
             if (ChecksUtils.yesNo()) {
                 agreed = true;
             } else {
                 System.out.println("Okey let's do it agane");
             }
+            currentLibrary.put(word, concatinatedTranslations);
         }
-        currentLibrary.put(word, concatinatedTranslations);
     }
 
     private void setLenguages() {
@@ -158,6 +169,32 @@ public class CreateLibraryStarter {
             e.printStackTrace();
         }
         return word;
+    }
+
+    private void updateOrInsertTranslationsInDB(String tr) throws SQLException {
+
+        DBRunner db = new DBRunner();
+        int before = translationsFromDB == null ? 0 : translationsFromDB.size();
+
+        if (translationsFromDB == null) {
+            db.insertTranslations(library.getLenguages(), word, tr);
+            return;
+        }
+
+        for(String s : tr.split(", ")) {
+            if (!translationsFromDB.contains(s)) {
+                translationsFromDB.add(s);
+            }
+        }
+
+        int after = translationsFromDB.size();
+
+        if (after > before) {
+            String concat = translationsFromDB.stream()
+                                            .collect(Collectors.joining(", "));
+            db.updateTranlations(library.getLenguages(), word, concat);
+        }
+        
     }
 
 }

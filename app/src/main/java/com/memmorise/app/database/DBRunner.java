@@ -10,30 +10,13 @@ import com.memmorise.app.tranlations.Lenguages;
 public class DBRunner {
 
 
-    private String word;
-    private String translations;
     private String to = "to_word";
-    private String from = "from_word";
 
     
-    private String checkWord;
     private String selectWord;
     private String updateWord;
     private String insertWord;
 
-    public void checkTranslation(Lenguages[] lengs, String word, String translations) throws SQLException {
-
-        checkWord = Querries.getCheckWordQuerry(lengs[0], lengs[1]);
-        to = to.replaceAll("to", lengs[1].getLeng());
-
-        try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(checkWord)) {
-            statement.setString(1, word);
-            ResultSet res = statement.executeQuery();
-
-            String s = res.getString(to);
-        }
-
-    }
 
     public List<String> getTranlations(Lenguages[] lengs, String word) throws SQLException {
         selectWord = Querries.getSelectWordQuerry(lengs[0], lengs[1]);
@@ -42,17 +25,32 @@ public class DBRunner {
         try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(selectWord)) {
             statement.setString(1, word);
             ResultSet res = statement.executeQuery();
-            if (res == null) {
+
+            if (res.next()) {
+                return List.of(res.getString(to).split(", "));
+            } else {
                 return null;
             }
+        }
+    }
 
-            String tr = "";
+    public void updateTranlations(Lenguages[] lengs, String word, String translations) throws SQLException {
+        updateWord = Querries.getUpdateWordQuerry(lengs[0], lengs[1]);
+        
+        try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(updateWord)) {
+            statement.setString(1, translations);
+            statement.setString(2, word);
+            statement.executeUpdate();
+        }
+    }
 
-            while (res.next()) {
-                tr = res.getString(to);
-            }
+    public void insertTranslations(Lenguages[] lengs, String word, String translations) throws SQLException {
+        insertWord = Querries.getInsertWordQuerry(lengs[0], lengs[1]);
 
-            return List.of(tr.split(", "));
+        try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(insertWord)) {
+            statement.setString(1, word);
+            statement.setString(1, translations);
+            statement.executeUpdate();
         }
     }
 
