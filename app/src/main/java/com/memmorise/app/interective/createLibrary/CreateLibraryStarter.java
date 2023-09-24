@@ -116,7 +116,11 @@ public class CreateLibraryStarter {
             System.out.println("Write 1 if you want to save result or 2 if your want to write anather translations");
 
             thread1 = new Thread(() -> {
+                try {
                 updateOrInsertTranslationsInDB(concatinatedTranslations);
+                } catch (SQLException e) {
+                    throw new RuntimeException();
+                }
             });
 
             thread1.start();

@@ -54,7 +54,7 @@ public class ClientTach {
             case 2 -> {clientWork.showAllUseLibraris();}
             case 3 -> {clientWork.changeLibrary();}
             case 4 -> {clientWork.startToMemorise();}
-            case 5 -> {ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername());}
+            case 5 -> {System.out.println(ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername()));}
         }
     }
 
