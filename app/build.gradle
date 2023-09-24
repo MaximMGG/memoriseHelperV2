@@ -11,6 +11,8 @@ dependencies {
 
     //lombok for autogenerate code
     compileOnly 'org.projectlombok:lombok:1.18.28'
+    //postgres connection
+    implementation 'org.postgresql:postgresql:42.6.0'
 
 
     // for parsing html
