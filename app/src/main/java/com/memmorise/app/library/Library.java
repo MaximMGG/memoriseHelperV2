@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.memmorise.app.files.Pathes;
 import com.memmorise.app.tranlations.Lenguages;
+import com.memmorise.app.tranlations.Translator;
 import com.memmorise.app.user.User;
 
 public class Library {
@@ -18,6 +19,7 @@ public class Library {
     private Lenguages from;
     private Lenguages to;
     private int length;
+    private Translator translator;
 
 
     public Library() {
@@ -82,6 +84,14 @@ public class Library {
         this.libraryContent = mapLibraryListToMap(libraryContent);
         length = libraryContent.size();
 
+    }
+
+    public Translator getTranslator() {
+        return translator;
+    }
+
+    public void setTranslator(Translator translator) {
+        this.translator = translator;
     }
 
     public void showLibraryContent() {

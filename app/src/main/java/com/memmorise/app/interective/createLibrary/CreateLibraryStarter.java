@@ -2,7 +2,6 @@ package com.memmorise.app.interective.createLibrary;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 import com.memmorise.app.files.DiskWorker;
@@ -28,12 +27,9 @@ public class CreateLibraryStarter {
     private DiskWorker diskWorker;
     private User user;
     private Map<String, String> currentLibrary;
-
-    private Thread thread1;
+    private AddWordWorker addWordWorker;
 
     private String word;
-    private List<String> translations;
-    private List<String> translationsFromDB;
 
     
     public void createLibrary(Library library) {
@@ -45,6 +41,9 @@ public class CreateLibraryStarter {
         library.setPathToLibrary(user);
         setLenguages();
         setTranslator();
+        library.setTranslator(translator);
+        addWordWorker = new AddWordWorker(translator, library);
+        
     }
 
 
@@ -86,7 +85,6 @@ public class CreateLibraryStarter {
     }
 
     private void addWord() throws InterruptedException, SQLException {
-        AddWordWorker addWordWorker = new AddWordWorker(translator, library);
         String[] wordPlusTranslation = addWordWorker.addWord();
         currentLibrary.put(wordPlusTranslation[0], wordPlusTranslation[1]);
     }
