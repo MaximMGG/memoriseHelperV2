@@ -3,6 +3,7 @@ package com.memmorise.app.database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.memmorise.app.tranlations.Lenguages;
@@ -27,7 +28,11 @@ public class DBRunner {
             ResultSet res = statement.executeQuery();
 
             if (res.next()) {
-                return List.of(res.getString(to).split(", "));
+                List<String> translationFromDB = new ArrayList<>();
+                for(String s : res.getString(to).split(", ")) {
+                    translationFromDB.add(s);
+                }
+                return translationFromDB;
             } else {
                 return null;
             }

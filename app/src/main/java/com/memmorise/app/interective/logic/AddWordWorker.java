@@ -26,7 +26,8 @@ public class AddWordWorker {
     }
 
 
-    public String[] addWord() throws InterruptedException, SQLException {
+    public String[] addWord(String w) throws InterruptedException, SQLException {
+        this.word = w;
         DBRunner db = new DBRunner();
         translationsFromDB = db.getTranlations(library.getLenguages(), word);
 

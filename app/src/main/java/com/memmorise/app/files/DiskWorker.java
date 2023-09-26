@@ -18,6 +18,7 @@ public class DiskWorker {
 
     public DiskWorker() {
         this.user = User.getInstance();
+        userInfo = new UserInfo();
     }
 
     public void setup() throws IOException {
@@ -29,7 +30,7 @@ public class DiskWorker {
             } else {
                 setUserLibraries();
             }
-        userInfo.setUserInfo(getUserConfigFromDidk());
+        userInfo.setUserConfig(getUserConfigFromDidk());
     }
 
     public void saveLibraryOnDisk(Library lib) throws IOException {

@@ -40,7 +40,9 @@ public class ChengeLibraryStarter {
     }
 
     private void addNewWord() throws InterruptedException, SQLException {
-        String[] wordAndTranslation = addWordWorker.addWord();
+        System.out.println("Please write word");
+        String word = ChecksUtils.writeString();
+        String[] wordAndTranslation = addWordWorker.addWord(word);
         currentLibrary.put(wordAndTranslation[0], wordAndTranslation[1]);
     }
 

@@ -7,15 +7,15 @@ import java.util.Map;
 
 public class UserInfo {
 
-    private Map<String, List<String>> userInfo;
+    private Map<String, List<String>> userConfig;
     private User user;
 
     public UserInfo() {
         user = User.getInstance();
     }
 
-    public void setUserInfo(List<String> userInfoFromDisk) {
-        userInfo = new HashMap<>();
+    public void setUserConfig(List<String> userInfoFromDisk) {
+        userConfig = new HashMap<>();
         for (String line : userInfoFromDisk) {
             String[] buffer = line.split(";");
             String key = buffer[0].split(":")[1];
@@ -25,38 +25,38 @@ public class UserInfo {
                 for (String s : libs[1].split(",")) {
                     list.add(s);
                 }
-                userInfo.put(key, list);
+                userConfig.put(key, list);
             } catch (IndexOutOfBoundsException e) {
-                userInfo.put(key, null);
+                userConfig.put(key, null);
             }
         }
         user.setUserInfo(this);
     }
 
-    public Map<String, List<String>> getUserInfo() {
-        return userInfo;
+    public Map<String, List<String>> getUserConfig() {
+        return userConfig;
     }
 
 
     public void addLibraryInUserInfo(String username, String library) {
-        if (userInfo == null) {
-            userInfo = new HashMap<>();
+        if (userConfig == null) {
+            userConfig = new HashMap<>();
         }
-        List<String> userLibraies = userInfo.get(username);
+        List<String> userLibraies = userConfig.get(username);
 
         if (userLibraies == null) {
             userLibraies = new ArrayList<>();
         }
 
         userLibraies.add(library);
-        userInfo.put(username, userLibraies);
+        userConfig.put(username, userLibraies);
     }
 
     public List<String> getUserInfoForDiskWrite() {
 
         List<String> listUserInfo = new ArrayList<>();
 
-        for (Map.Entry<String, List<String>> entry : userInfo.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : userConfig.entrySet()) {
             StringBuilder sb = new StringBuilder();
             sb.append("user:"+entry.getKey());
             sb.append(";libraries:");

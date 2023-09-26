@@ -1,5 +1,6 @@
 package com.memmorise.app.utils;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -64,7 +65,7 @@ public class ChecksUtils {
     }
 
     public static String getUserChoose(List<String> translations) {
-        scan = new Scanner(System.in);
+        scan = new Scanner(System.in, Charset.forName("Cp1251"));
         List<String> userChoose = new ArrayList<>();
 
         String[] buffer = scan.nextLine().split(", "); // 1, 2, Пока
