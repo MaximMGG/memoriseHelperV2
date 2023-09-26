@@ -11,7 +11,6 @@ import lombok.experimental.UtilityClass;
 public class InterectiveUtils {
     
 
-
     public static Lenguages getChoosenLenguage() {
         switch (ChecksUtils.writeInt(1, 2)) {
             case 1 -> {return Lenguages.ENGLISH;}
@@ -39,4 +38,9 @@ public class InterectiveUtils {
         }
         System.out.println();
     }
+
+    public int getUserShoseLibrary(int zizeOfUserLibrariesList) {
+        return ChecksUtils.writeInt(1, zizeOfUserLibrariesList);
+    }
+
 }

@@ -10,6 +10,7 @@ public class User {
     private static User instance = new User();
     private List<Library> libraries;
     private Library currentLibrary;
+    private UserInfo userInfo;
 
     private User() {}
 
@@ -20,6 +21,14 @@ public class User {
     public User(String username, List<Library> libraries) {
         this.username = username;
         this.libraries = libraries;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
     public Library getCurrentLibrary() {
@@ -46,5 +55,10 @@ public class User {
         this.libraries = libraries;
     }
 
-
+    public void showUserLibraries() {
+        int i = 1;
+        for(Library lib : libraries) {
+            System.out.println("%d. %s".formatted(i, lib.getLibraryName()));
+        }
+    }
 }
