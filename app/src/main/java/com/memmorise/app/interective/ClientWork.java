@@ -29,7 +29,7 @@ public class ClientWork {
     }
 
 
-    public void showAllUseLibraris() {
+    public void showAllUseLibraris() throws IOException {
         user = User.getInstance();
         Library library = new Library();
         chengeLibraryStarter = new ChengeLibraryStarter();

@@ -18,7 +18,6 @@ public class DiskWorker {
 
     public DiskWorker() {
         this.user = User.getInstance();
-        userInfo = new UserInfo();
     }
 
     public void setup() throws IOException {

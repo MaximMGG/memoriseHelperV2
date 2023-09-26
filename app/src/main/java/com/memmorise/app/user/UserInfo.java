@@ -8,6 +8,11 @@ import java.util.Map;
 public class UserInfo {
 
     private Map<String, List<String>> userInfo;
+    private User user;
+
+    public UserInfo() {
+        user = User.getInstance();
+    }
 
     public void setUserInfo(List<String> userInfoFromDisk) {
         userInfo = new HashMap<>();
@@ -25,6 +30,7 @@ public class UserInfo {
                 userInfo.put(key, null);
             }
         }
+        user.setUserInfo(this);
     }
 
     public Map<String, List<String>> getUserInfo() {
