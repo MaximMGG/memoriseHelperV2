@@ -21,9 +21,9 @@ public class UserInfoTest {
         expected.put("John", List.of("One", "Two"));
 
         UserInfo ui = new UserInfo();
-        ui.setUserInfo(userInfoFromDisk);
+        ui.setUserConfig(userInfoFromDisk);
 
-        Assertions.assertThat(ui.getUserInfo()).isEqualTo(expected);
+        Assertions.assertThat(ui.getUserConfig()).isEqualTo(expected);
     }
 
 
@@ -32,7 +32,7 @@ public class UserInfoTest {
         List<String> userInfoFromDisk = List.of("user:Maxim;libraries:MyfirstGiperLibrary,Cats,Dogs", "user:Polya;libraries:",
                                                             "user:John;libraries:One,Two");
         UserInfo ui = new UserInfo();
-        ui.setUserInfo(userInfoFromDisk);
+        ui.setUserConfig(userInfoFromDisk);
         List<String> result = ui.getUserInfoForDiskWrite();
         
         for (String s : result) {
@@ -50,11 +50,11 @@ public class UserInfoTest {
         expected.put("John", List.of("One", "Two", "Three"));
 
         UserInfo ui = new UserInfo();
-        ui.setUserInfo(userInfoFromDisk);
+        ui.setUserConfig(userInfoFromDisk);
         ui.addLibraryInUserInfo("Polya", "Mamy");
         ui.addLibraryInUserInfo("John", "Three");
 
-        Assertions.assertThat(ui.getUserInfo()).isEqualTo(expected);
+        Assertions.assertThat(ui.getUserConfig()).isEqualTo(expected);
 
     }
 }
