@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import com.memmorise.app.files.DiskWorker;
+import com.memmorise.app.interective.ClientTach;
+import com.memmorise.app.interective.ClientWordBufer;
 import com.memmorise.app.interective.CrossRoad;
 import com.memmorise.app.interective.logic.AddWordWorker;
 import com.memmorise.app.library.Library;
@@ -19,6 +21,7 @@ public class ChangeLibraryStarter {
     private boolean work = true;
     private AddWordWorker addWordWorker;
     private Map<String, String> currentLibrary;
+    private ClientTach clientTach;
 
     public void startChenging(int libIndex) throws IOException {
         user = User.getInstance();
@@ -27,9 +30,10 @@ public class ChangeLibraryStarter {
         library = diskWorker.getLibraryFromDisk(library);
         addWordWorker = new AddWordWorker(library.getTranslator(), library);
         currentLibrary = library.getLibraryContent();
+        clientTach = ClientTach.getInstance();
     }
 
-    public void chengeProcess() throws InterruptedException, SQLException {
+    public void changeProcess() throws InterruptedException, SQLException, IOException {
         while (work) {
             library.showLibraryContent();
             System.out.println("Please chose word that you want to change or enter 0 if you want add new word");
@@ -37,7 +41,7 @@ public class ChangeLibraryStarter {
             if (index == 0) {
                 addNewWord();
             } else {
-                chageWord(getWordByNumber(index));
+                changeWord(getWordByNumber(index));
             }
             System.out.println("Continue?");
             if (ChecksUtils.yesNo()) {
@@ -46,7 +50,32 @@ public class ChangeLibraryStarter {
                 work = false;
             }
         }
-        CrossRoad.changeLibraryCrossroad();
+        library.setLibraryContent(currentLibrary);
+        changeLibraryRedirection(CrossRoad.changeLibraryCrossroad());
+    }
+
+    private void changeLibraryRedirection(int red) throws IOException, SQLException, InterruptedException {
+        switch (red) {
+            case 1 -> {
+                diskWorker.saveLibraryOnDisk(library);
+                clientTach.startApp();
+            }
+            case 2 -> {
+                library = null;
+                clientTach.startApp();
+            }
+            case 3 -> {
+                changeProcess();
+            }
+            case 4 -> {
+                diskWorker.saveLibraryOnDisk(library);
+                System.out.println(ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername()));
+            }
+            case 5 -> {
+                System.out.println(ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername()));
+            }
+        }
+
     }
 
     
@@ -57,7 +86,7 @@ public class ChangeLibraryStarter {
         currentLibrary.put(wordAndTranslation[0], wordAndTranslation[1]);
     }
     
-    private void chageWord(String[] wordAndTranslation) throws InterruptedException, SQLException {
+    private void changeWord(String[] wordAndTranslation) throws InterruptedException, SQLException {
         System.out.println("Word is : %d".formatted(wordAndTranslation[0]));
         System.out.println("Translations are : %d".formatted(wordAndTranslation[1]));
         System.out.println("1. Change translations\n2.Delete word");
