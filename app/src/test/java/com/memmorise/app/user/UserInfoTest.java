@@ -20,7 +20,7 @@ public class UserInfoTest {
         expected.put("Polya", null);
         expected.put("John", List.of("One", "Two"));
 
-        UserInfo ui = new UserInfo();
+        UserInfo ui = UserInfo.getInstancse();
         ui.setUserConfig(userInfoFromDisk);
 
         Assertions.assertThat(ui.getUserConfig()).isEqualTo(expected);
@@ -31,7 +31,7 @@ public class UserInfoTest {
     public void getUserInfoForDiskWriteTest() {
         List<String> userInfoFromDisk = List.of("user:Maxim;libraries:MyfirstGiperLibrary,Cats,Dogs", "user:Polya;libraries:",
                                                             "user:John;libraries:One,Two");
-        UserInfo ui = new UserInfo();
+        UserInfo ui = UserInfo.getInstancse();
         ui.setUserConfig(userInfoFromDisk);
         List<String> result = ui.getUserInfoForDiskWrite();
         
@@ -49,7 +49,7 @@ public class UserInfoTest {
         expected.put("Polya", List.of("Mamy"));
         expected.put("John", List.of("One", "Two", "Three"));
 
-        UserInfo ui = new UserInfo();
+        UserInfo ui = UserInfo.getInstancse();
         ui.setUserConfig(userInfoFromDisk);
         ui.addLibraryInUserInfo("Polya", "Mamy");
         ui.addLibraryInUserInfo("John", "Three");

@@ -11,8 +11,8 @@ import com.memmorise.app.interective.CrossRoad;
 import com.memmorise.app.interective.InterectiveUtils;
 import com.memmorise.app.interective.logic.AddWordWorker;
 import com.memmorise.app.library.Library;
+import com.memmorise.app.tranlations.EnRuTranslator;
 import com.memmorise.app.tranlations.Lenguages;
-import com.memmorise.app.tranlations.RuEnTranslator;
 import com.memmorise.app.tranlations.Translator;
 import com.memmorise.app.user.User;
 import com.memmorise.app.utils.ChecksUtils;
@@ -105,8 +105,8 @@ public class CreateLibraryStarter {
 
 
     private void setTranslator() {
-        if(from == Lenguages.RUSSIAN && to == Lenguages.ENGLISH) {
-            translator = new RuEnTranslator();
+        if(from == Lenguages.ENGLISH && to == Lenguages.RUSSIAN) {
+            translator = new EnRuTranslator();
         }
     }
 }

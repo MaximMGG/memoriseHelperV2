@@ -32,7 +32,7 @@ public class AddWordWorker {
         translationsFromDB = db.getTranlations(library.getLenguages(), word);
 
         if (translationsFromDB == null) {
-            System.out.println("Going to the web for find trablations");
+            System.out.println("Going to the web for find tranlations");
             thread1 = new Thread(() -> word = setTranlations(word));
             thread1.start();
             InterectiveUtils.awesomePrinting("Checking your word...");
@@ -102,6 +102,7 @@ public class AddWordWorker {
     }
 
     private String setTranlations(String word) {
+        translator = library.getTranslator();
         try {
             String checkWord = translator.checkWord(word);
             if (!checkWord.equals(word) && !checkWord.isEmpty()) {

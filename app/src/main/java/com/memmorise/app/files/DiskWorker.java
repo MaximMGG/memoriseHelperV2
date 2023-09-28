@@ -18,7 +18,7 @@ public class DiskWorker {
 
     public DiskWorker() {
         this.user = User.getInstance();
-        userInfo = new UserInfo();
+        userInfo = UserInfo.getInstancse();
     }
 
     public void setup() throws IOException {
@@ -33,6 +33,7 @@ public class DiskWorker {
         userInfo.setUserConfig(getUserConfigFromDidk());
     }
 
+    
     public void saveLibraryOnDisk(Library lib) throws IOException {
         Files.write(lib.getPathToLibrary(), lib.getLibraryContentByList());
         writeLibraryInUserConfig(lib);
@@ -53,14 +54,14 @@ public class DiskWorker {
     private void setUserLibraries() throws IOException {
         List<String> userInfo = Files.readAllLines(Path.of(Pathes.PATH_TO_USER_CONFIG));
         List<Library> userLibraries = new ArrayList<>();
-
+        
         for (String line : userInfo) {
             line = line.replace("user:", "");
             line = line.replace(";libraries", ",");
             String[] buffer = line.split(",");
             if (buffer[0].equals(user.getUsername()) && buffer[1] != null) {
                 for (int i = 0; i < buffer.length; i++) {
-                   userLibraries.add(new Library(buffer[i]));
+                    userLibraries.add(new Library(buffer[i]));
                 }
             }
         }
@@ -87,7 +88,7 @@ public class DiskWorker {
         }
     }
 
-
+    
     private void checkExistingUserLibraryDir() throws IOException {
         if (Files.exists(Path.of(Pathes.PATH_TO_USER_LIBRARIES))) {
         } else {
@@ -95,7 +96,7 @@ public class DiskWorker {
         }
     }
 
-
+    
     private void checkExistingUserConfig() throws IOException {
         if (Files.exists(Path.of(Pathes.PATH_TO_USER_CONFIG))) {
         } else {

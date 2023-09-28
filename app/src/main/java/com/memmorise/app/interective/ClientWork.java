@@ -45,7 +45,6 @@ public class ClientWork {
     }
 
     public void changeLibrary() throws IOException {
-        Library library = new Library();
         chengeLibraryStarter = new ChangeLibraryStarter();
         user.showUserLibraries();
         System.out.println("Please write number of library that you want to change");

@@ -8,11 +8,16 @@ import java.util.Map;
 public class UserInfo {
 
     private Map<String, List<String>> userConfig;
-    private User user;
+    private static User user;
+    private static UserInfo instance = new UserInfo();
+    
+    private UserInfo() {}
 
-    public UserInfo() {
+    public static UserInfo getInstancse(){
         user = User.getInstance();
+        return instance;
     }
+
 
     public void setUserConfig(List<String> userInfoFromDisk) {
         userConfig = new HashMap<>();
