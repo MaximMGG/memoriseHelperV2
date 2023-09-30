@@ -46,22 +46,19 @@ public class ChecksUtils {
     public static String writeString() {
         scan = new Scanner(System.in);
         String word = "";
-        try {
+        while (true) {
             word = scan.nextLine();
 
-            if (word.equals("0")) return word;
+            if (word.equals("0"))
+                return word;
 
             Matcher m = Pattern.compile("^\\b[A-z]+$").matcher(word);
             if (m.find()) {
                 return word;
             } else {
-                throw new IllegalStateException();
+                System.out.println("You wrote not a String, or String is incorrect, please try agane");
             }
-        } catch (IllegalStateException e) {
-            System.out.println("You wrote not a String, please try agane");
-            writeString();
         }
-        return word;
     }
 
     public static String getUserChoose(List<String> translations) {

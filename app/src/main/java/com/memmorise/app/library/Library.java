@@ -48,8 +48,8 @@ public class Library {
         this.to = to;
     }
 
-    public Lenguages[] getLenguages() {
-        return new Lenguages[]{from, to};
+    public String[] getLenguages() {
+        return translator.getFromTo().split("-");
     }
 
     public void setPathToLibrary(User user) {

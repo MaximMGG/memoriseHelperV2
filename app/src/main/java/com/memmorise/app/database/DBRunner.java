@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.memmorise.app.tranlations.Lenguages;
-
 public class DBRunner {
 
 
@@ -19,9 +17,9 @@ public class DBRunner {
     private String insertWord;
 
 
-    public List<String> getTranlations(Lenguages[] lengs, String word) throws SQLException {
+    public List<String> getTranlations(String[] lengs, String word) throws SQLException {
         selectWord = Querries.getSelectWordQuerry(lengs[0], lengs[1]);
-        to = to.replaceAll("to", lengs[1].getLeng());
+        to = to.replaceAll("to", lengs[1]);
 
         try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(selectWord)) {
             statement.setString(1, word);
@@ -39,7 +37,7 @@ public class DBRunner {
         }
     }
 
-    public void updateTranlations(Lenguages[] lengs, String word, String translations) throws SQLException {
+    public void updateTranlations(String[] lengs, String word, String translations) throws SQLException {
         updateWord = Querries.getUpdateWordQuerry(lengs[0], lengs[1]);
         
         try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(updateWord)) {
@@ -49,7 +47,7 @@ public class DBRunner {
         }
     }
 
-    public void insertTranslations(Lenguages[] lengs, String word, String translations) throws SQLException {
+    public void insertTranslations(String[] lengs, String word, String translations) throws SQLException {
         insertWord = Querries.getInsertWordQuerry(lengs[0], lengs[1]);
 
         try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(insertWord)) {

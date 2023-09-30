@@ -29,7 +29,7 @@ public class AddWordWorker {
     public String[] addWord(String w) throws InterruptedException, SQLException {
         this.word = w;
         DBRunner db = new DBRunner();
-        translationsFromDB = db.getTranlations(library.getLenguages(), word);
+        translationsFromDB = db.getTranlations(library.getTranslator().getFromTo().split("-"), word);
 
         if (translationsFromDB == null) {
             System.out.println("Going to the web for find tranlations");
@@ -91,7 +91,7 @@ public class AddWordWorker {
         int before = translationsFromDB == null ? 0 : translationsFromDB.size();
 
         if (translationsFromDB == null) {
-            db.insertTranslations(library.getLenguages(), word, tr);
+            db.insertTranslations(library.getTranslator().getFromTo().split("-"), word, tr);
             return;
         }
 
@@ -106,7 +106,7 @@ public class AddWordWorker {
         if (after > before) {
             String concat = translationsFromDB.stream()
                                             .collect(Collectors.joining(", "));
-            db.updateTranlations(library.getLenguages(), word, concat);
+            db.updateTranlations(library.getTranslator().getFromTo().split("-"), word, concat);
         }
         
     }

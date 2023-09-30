@@ -1,7 +1,5 @@
 package com.memmorise.app.database;
 
-import com.memmorise.app.tranlations.Lenguages;
-
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -28,19 +26,19 @@ public class Querries {
             where fr_word = ?
             """;
 
-    public static String getInsertWordQuerry(Lenguages from, Lenguages to) {
-        String result = INSERT_WORD.replaceAll("fr_", from.getLeng() + "_");
-        return result.replaceAll("to_", to.getLeng() + "_");
+    public static String getInsertWordQuerry(String from, String to) {
+        String result = INSERT_WORD.replaceAll("fr_", from + "_");
+        return result.replaceAll("to_", to + "_");
     }
 
-    public static String getUpdateWordQuerry(Lenguages from, Lenguages to) {
-        String result = UPDATE_WORD.replaceAll("fr_", from.getLeng() + "_");
-        return result.replaceAll("to_", to.getLeng() + "_");
+    public static String getUpdateWordQuerry(String from, String to) {
+        String result = UPDATE_WORD.replaceAll("fr_", from + "_");
+        return result.replaceAll("to_", to + "_");
     }
 
-    public static String getSelectWordQuerry(Lenguages from, Lenguages to) {
-        String result = SELECT_WORD.replaceAll("fr_", from.getLeng() + "_");
-        return result.replaceAll("to_", to.getLeng() + "_");
+    public static String getSelectWordQuerry(String from, String to) {
+        String result = SELECT_WORD.replaceAll("fr_", from + "_");
+        return result.replaceAll("to_", to + "_");
     }
     
 }

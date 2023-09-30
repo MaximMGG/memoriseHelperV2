@@ -10,6 +10,7 @@ import java.util.List;
 import com.memmorise.app.library.Library;
 import com.memmorise.app.user.User;
 import com.memmorise.app.user.UserInfo;
+import com.memmorise.app.utils.LangUtils;
 
 public class DiskWorker {
 
@@ -61,7 +62,10 @@ public class DiskWorker {
             String[] buffer = line.split(",");
             if (buffer[0].equals(user.getUsername()) && buffer.length > 1) {
                 for (int i = 1; i < buffer.length; i++) {
-                    userLibraries.add(new Library(buffer[i]));
+                    String fromTo = buffer[i].substring(1, 6);
+                    Library l = new Library(buffer[i].replaceAll("\\(.+\\)", ""));
+                    l.setTranslator(LangUtils.getTranlator(fromTo));
+                    userLibraries.add(l);
                 }
             }
         }
