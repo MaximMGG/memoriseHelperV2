@@ -86,6 +86,9 @@ public class CreateLibraryStarter {
 
     private void addWord() throws InterruptedException, SQLException {
         String[] wordPlusTranslation = addWordWorker.addWord(word);
+        if (wordPlusTranslation == null) {
+            return;
+        }
         currentLibrary.put(wordPlusTranslation[0], wordPlusTranslation[1]);
     }
 

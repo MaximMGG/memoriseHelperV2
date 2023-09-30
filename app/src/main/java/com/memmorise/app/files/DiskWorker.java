@@ -57,10 +57,10 @@ public class DiskWorker {
         
         for (String line : userInfo) {
             line = line.replace("user:", "");
-            line = line.replace(";libraries", ",");
+            line = line.replace(";libraries:", ",");
             String[] buffer = line.split(",");
             if (buffer[0].equals(user.getUsername()) && buffer[1] != null) {
-                for (int i = 0; i < buffer.length; i++) {
+                for (int i = 1; i < buffer.length; i++) {
                     userLibraries.add(new Library(buffer[i]));
                 }
             }

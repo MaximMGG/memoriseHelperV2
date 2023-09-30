@@ -27,8 +27,10 @@ public class Library {
     }
 
     public Library(String libraryName) {
+        User user = User.getInstance();
         this.libraryName = libraryName;
         libraryContent = new HashMap<>();
+        setPathToLibrary(user);
     }
 
     public Library(String libraryName, Map<String, String> libraryContent) {

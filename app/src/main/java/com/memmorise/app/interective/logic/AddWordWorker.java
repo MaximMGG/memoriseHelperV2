@@ -41,16 +41,27 @@ public class AddWordWorker {
             translations = translationsFromDB;
         }
 
-            boolean agreed = false;
-
+        
+        boolean agreed = false;
+        
         while (!agreed) {
+            
+            if (translations.size() == 0) {
+                System.out.println("Sorry, but we don't find any translations of word -> " + word);
+                System.out.println("You can write your own or enter 0 for write word agane");
 
-            System.out.println("Here is traslations of your word -> " + word);
-            InterectiveUtils.printTranslations(translations);
-            System.out.println("You can chose one or more translations, or write you own");
-            System.out.println("For example -> 1, 3, my own translation");
+            } else {
+                System.out.println("Here is traslations of your word -> " + word);
+                InterectiveUtils.printTranslations(translations);
+                System.out.println("You can chose one or more translations, or write you own");
+                System.out.println("For example -> 1, 3, my own translation");
+            }
 
             final String concatinatedTranslations = ChecksUtils.getUserChoose(translations);
+
+            if (concatinatedTranslations.equals("0")) {
+                return null;
+            }
 
             System.out.println("Your word -> " + word + " translations -> " + concatinatedTranslations);
             System.out.println("Write 1 if you want to save result or 2 if your want to write anather translations");

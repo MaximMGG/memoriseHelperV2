@@ -54,7 +54,7 @@ public class DBRunner {
 
         try (PreparedStatement statement = ConnectionManager.getConnection().prepareStatement(insertWord)) {
             statement.setString(1, word);
-            statement.setString(1, translations);
+            statement.setString(2, translations);
             statement.executeUpdate();
         }
     }

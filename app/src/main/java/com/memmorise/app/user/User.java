@@ -58,7 +58,8 @@ public class User {
     public void showUserLibraries() {
         int i = 1;
         for(Library lib : libraries) {
-            System.out.println("%d. %s".formatted(i, lib.getLibraryName()));
+            System.out.println("%d. Library -> %s".formatted(i, lib.getLibraryName()));
+            i++;
         }
     }
 }

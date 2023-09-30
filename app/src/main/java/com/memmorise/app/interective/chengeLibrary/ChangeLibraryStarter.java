@@ -23,7 +23,7 @@ public class ChangeLibraryStarter {
     private Map<String, String> currentLibrary;
     private ClientTach clientTach;
 
-    public void startChenging(int libIndex) throws IOException {
+    public void startChenging(int libIndex) throws IOException, InterruptedException, SQLException {
         user = User.getInstance();
         library = user.getLibraries().get(libIndex - 1);
         diskWorker = new DiskWorker();
@@ -31,6 +31,7 @@ public class ChangeLibraryStarter {
         addWordWorker = new AddWordWorker(library.getTranslator(), library);
         currentLibrary = library.getLibraryContent();
         clientTach = ClientTach.getInstance();
+        changeProcess();
     }
 
     public void changeProcess() throws InterruptedException, SQLException, IOException {

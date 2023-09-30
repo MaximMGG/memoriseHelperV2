@@ -44,7 +44,7 @@ public class ClientWork {
         }
     }
 
-    public void changeLibrary() throws IOException {
+    public void changeLibrary() throws IOException, InterruptedException, SQLException {
         chengeLibraryStarter = new ChangeLibraryStarter();
         user.showUserLibraries();
         System.out.println("Please write number of library that you want to change");
