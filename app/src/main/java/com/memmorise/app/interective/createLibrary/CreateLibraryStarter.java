@@ -42,7 +42,6 @@ public class CreateLibraryStarter {
         setLenguages();
         setTranslator();
         library.setTranslator(translator);
-        library.getTranslator().setFromTo(from, to);
         addWordWorker = new AddWordWorker(translator, library);
         
     }
@@ -65,7 +64,7 @@ public class CreateLibraryStarter {
     public void createLibraryRedirection(int index) throws IOException, SQLException, InterruptedException {
         switch (index) {
             case 1 -> {
-                diskWorker.saveLibraryOnDisk(library);
+                diskWorker.saveLibraryOnDisk(library, false);
                 clientTach.startApp();
             }
             case 2 -> {
@@ -76,7 +75,7 @@ public class CreateLibraryStarter {
                 startAddingWords();
             }
             case 4 -> {
-                diskWorker.saveLibraryOnDisk(library);
+                diskWorker.saveLibraryOnDisk(library, false);
                 System.out.println(ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername()));
             }
             case 5 -> {

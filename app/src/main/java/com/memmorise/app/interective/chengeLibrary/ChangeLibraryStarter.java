@@ -58,7 +58,7 @@ public class ChangeLibraryStarter {
     private void changeLibraryRedirection(int red) throws IOException, SQLException, InterruptedException {
         switch (red) {
             case 1 -> {
-                diskWorker.saveLibraryOnDisk(library);
+                diskWorker.saveLibraryOnDisk(library, true);
                 clientTach.startApp();
             }
             case 2 -> {
@@ -66,10 +66,11 @@ public class ChangeLibraryStarter {
                 clientTach.startApp();
             }
             case 3 -> {
+                work = true;
                 changeProcess();
             }
             case 4 -> {
-                diskWorker.saveLibraryOnDisk(library);
+                diskWorker.saveLibraryOnDisk(library, true);
                 System.out.println(ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername()));
             }
             case 5 -> {
@@ -87,9 +88,9 @@ public class ChangeLibraryStarter {
     }
     
     private void changeWord(String[] wordAndTranslation) throws InterruptedException, SQLException {
-        System.out.println("Word is : %d".formatted(wordAndTranslation[0]));
-        System.out.println("Translations are : %d".formatted(wordAndTranslation[1]));
-        System.out.println("1. Change translations\n2.Delete word");
+        System.out.println("Word is : %s".formatted(wordAndTranslation[0]));
+        System.out.println("Translations are : %s".formatted(wordAndTranslation[1]));
+        System.out.println("1. Change translations\n2. Delete word");
         if (ChecksUtils.writeInt(1, 2) == 1) {
             String[] changedTrans = addWordWorker.addWord(wordAndTranslation[0]);
             currentLibrary.put(changedTrans[0], changedTrans[1]);

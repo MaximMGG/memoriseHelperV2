@@ -53,7 +53,7 @@ public class UserInfo {
             userLibraies = new ArrayList<>();
         }
 
-        userLibraies.add(lenFromTo + library);
+        userLibraies.add("(" + lenFromTo + ")" + library);
         userConfig.put(username, userLibraies);
     }
 

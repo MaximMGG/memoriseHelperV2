@@ -14,6 +14,7 @@ public class LangUtils {
         //TODO add new translators here
         switch (fromTo) {
             case "en-ru" -> {return new EnRuTranslator();}
+
             default -> {return null;}
         }
     }

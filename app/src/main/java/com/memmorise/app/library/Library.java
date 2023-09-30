@@ -100,6 +100,7 @@ public class Library {
         int index = 1;
         for(Map.Entry<String, String> entry : libraryContent.entrySet()) {
             System.out.println("%d. %s - %s".formatted(index, entry.getKey(), entry.getValue()));
+            index++;
         }
     }
 

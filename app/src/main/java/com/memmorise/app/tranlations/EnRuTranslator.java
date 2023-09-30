@@ -15,14 +15,14 @@ public class EnRuTranslator implements Translator{
 
     private String fromTo;
 
-    @Override
-    public String getFromTo() {
-        return fromTo;
+
+    public EnRuTranslator() {
+        this.fromTo = "en-ru";
     }
 
     @Override
-    public void setFromTo(Lenguages from, Lenguages to) {
-        this.fromTo = String.format("(%s-%s)", from.getLeng(), to.getLeng());
+    public String getFromTo() {
+        return fromTo;
     }
 
     @Override

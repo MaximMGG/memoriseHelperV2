@@ -35,9 +35,10 @@ public class DiskWorker {
     }
 
     
-    public void saveLibraryOnDisk(Library lib) throws IOException {
+    public void saveLibraryOnDisk(Library lib, boolean changed) throws IOException {
         Files.write(lib.getPathToLibrary(), lib.getLibraryContentByList());
-        writeLibraryInUserConfig(lib);
+        if (!changed)
+            writeLibraryInUserConfig(lib);
     }
 
     public Library getLibraryFromDisk(Library lib) throws IOException {

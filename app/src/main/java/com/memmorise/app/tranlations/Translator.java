@@ -5,9 +5,6 @@ import java.util.List;
 
 public interface Translator {
 
-
-    void setFromTo(Lenguages from, Lenguages to);
-
     String getFromTo();
 
     List<String> getTranclations(String word) throws IOException;
