@@ -21,7 +21,7 @@ public class ClientWork {
         clientTach = ClientTach.getInstance();
     }
 
-    public void createLibrary() throws IOException, SQLException {
+    public void createLibrary() throws IOException, SQLException, InterruptedException {
         Library library = new Library();
         libraryStrater = new CreateLibraryStarter();
         System.out.println("So let's start, please write name of library");
@@ -34,7 +34,7 @@ public class ClientWork {
     }
 
 
-    public void showAllUseLibraris() throws IOException, SQLException {
+    public void showAllUseLibraris() throws IOException, SQLException, InterruptedException {
         user = User.getInstance();
         user.showUserLibraries();
         System.out.println("1. Back\n2. Exit");

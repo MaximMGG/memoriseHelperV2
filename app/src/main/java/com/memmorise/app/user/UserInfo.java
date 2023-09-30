@@ -17,7 +17,7 @@ public class UserInfo {
         user = User.getInstance();
         return instance;
     }
-
+//user:Maxim;Library:(en-ru)one,(ru-en)two
 
     public void setUserConfig(List<String> userInfoFromDisk) {
         userConfig = new HashMap<>();
@@ -43,7 +43,7 @@ public class UserInfo {
     }
 
 
-    public void addLibraryInUserInfo(String username, String library) {
+    public void addLibraryInUserInfo(String username, String lenFromTo, String library) {
         if (userConfig == null) {
             userConfig = new HashMap<>();
         }
@@ -53,7 +53,7 @@ public class UserInfo {
             userLibraies = new ArrayList<>();
         }
 
-        userLibraies.add(library);
+        userLibraies.add(lenFromTo + library);
         userConfig.put(username, userLibraies);
     }
 

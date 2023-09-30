@@ -51,8 +51,8 @@ public class UserInfoTest {
 
         UserInfo ui = UserInfo.getInstancse();
         ui.setUserConfig(userInfoFromDisk);
-        ui.addLibraryInUserInfo("Polya", "Mamy");
-        ui.addLibraryInUserInfo("John", "Three");
+        ui.addLibraryInUserInfo("Polya", "(en-ru)", "Mamy");
+        ui.addLibraryInUserInfo("John", "(en-ru)", "Three");
 
         Assertions.assertThat(ui.getUserConfig()).isEqualTo(expected);
 

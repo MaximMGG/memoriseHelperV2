@@ -76,7 +76,6 @@ public class ChangeLibraryStarter {
                 System.out.println(ClientWordBufer.SEY_GOODBYE_TO_USER.formatted(user.getUsername()));
             }
         }
-
     }
 
     

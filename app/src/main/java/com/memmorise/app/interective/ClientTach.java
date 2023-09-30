@@ -22,7 +22,7 @@ public class ClientTach {
         return instance;
     }
     
-    public void startApp() throws SQLException {
+    public void startApp() throws SQLException, InterruptedException {
         clientWork = new ClientWork();
         if (firstVisit) {
             greetsAndSetUser();
@@ -48,7 +48,7 @@ public class ClientTach {
         System.out.println("What do you prefer?");
     }
 
-    private void redirectionAfterMainCrossroad(int userChoose) throws IOException, SQLException {
+    private void redirectionAfterMainCrossroad(int userChoose) throws IOException, SQLException, InterruptedException {
         switch (userChoose) {
             case 1 -> {clientWork.createLibrary();}
             case 2 -> {clientWork.showAllUseLibraris();}

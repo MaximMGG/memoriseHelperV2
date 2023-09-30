@@ -59,7 +59,7 @@ public class DiskWorker {
             line = line.replace("user:", "");
             line = line.replace(";libraries:", ",");
             String[] buffer = line.split(",");
-            if (buffer[0].equals(user.getUsername()) && buffer[1] != null) {
+            if (buffer[0].equals(user.getUsername()) && buffer.length > 1) {
                 for (int i = 1; i < buffer.length; i++) {
                     userLibraries.add(new Library(buffer[i]));
                 }
@@ -116,7 +116,7 @@ public class DiskWorker {
 
 
     private void writeLibraryInUserConfig(Library library) throws IOException {
-        userInfo.addLibraryInUserInfo(user.getUsername(), library.getLibraryName());
+        userInfo.addLibraryInUserInfo(user.getUsername(), library.getTranslator().getFromTo(), library.getLibraryName());
         Files.write(Path.of(Pathes.PATH_TO_USER_CONFIG), userInfo.getUserInfoForDiskWrite());
     }
 }

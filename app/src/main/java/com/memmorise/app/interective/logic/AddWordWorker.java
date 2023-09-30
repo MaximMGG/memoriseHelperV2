@@ -40,7 +40,6 @@ public class AddWordWorker {
         } else {
             translations = translationsFromDB;
         }
-
         
         boolean agreed = false;
         

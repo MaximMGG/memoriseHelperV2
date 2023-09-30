@@ -13,6 +13,17 @@ public class EnRuTranslator implements Translator{
     private static final String URL_EN_RU_TRANSLATIONS = "https://context.reverso.net/перевод/английский-русский/";
     private static final String URL_GOOGLE_CHECK = "https://www.google.com/search?q=";
 
+    private String fromTo;
+
+    @Override
+    public String getFromTo() {
+        return fromTo;
+    }
+
+    @Override
+    public void setFromTo(Lenguages from, Lenguages to) {
+        this.fromTo = String.format("(%s-%s)", from.getLeng(), to.getLeng());
+    }
 
     @Override
     public List<String> getTranclations(String word) throws IOException {

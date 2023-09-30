@@ -42,12 +42,13 @@ public class CreateLibraryStarter {
         setLenguages();
         setTranslator();
         library.setTranslator(translator);
+        library.getTranslator().setFromTo(from, to);
         addWordWorker = new AddWordWorker(translator, library);
         
     }
 
 
-    public void startAddingWords() throws IOException, SQLException {
+    public void startAddingWords() throws IOException, SQLException, InterruptedException {
         while (true) {
             System.out.println("Please write word or write '0' for stop writing words");
             word = ChecksUtils.writeString();
@@ -61,7 +62,7 @@ public class CreateLibraryStarter {
         createLibraryRedirection(CrossRoad.createLibraryCrossroad());
     }
 
-    public void createLibraryRedirection(int index) throws IOException, SQLException {
+    public void createLibraryRedirection(int index) throws IOException, SQLException, InterruptedException {
         switch (index) {
             case 1 -> {
                 diskWorker.saveLibraryOnDisk(library);
@@ -111,5 +112,6 @@ public class CreateLibraryStarter {
         if(from == Lenguages.ENGLISH && to == Lenguages.RUSSIAN) {
             translator = new EnRuTranslator();
         }
+        library.setTranslator(translator);
     }
 }
