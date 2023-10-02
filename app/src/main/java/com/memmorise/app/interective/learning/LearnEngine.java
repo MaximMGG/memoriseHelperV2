@@ -23,9 +23,9 @@ public class LearnEngine {
         System.out.println("2. I am now this words not bad");
         System.out.println("3. I am now well this words just want to check my self");
         switch (ChecksUtils.writeInt(1, 3)) {
-            case 1 -> {}
-            case 2 -> {}
-            case 3 -> {}
+            case 1 -> {FirstLevel fl = new FirstLevel(currentLibrary);}
+            case 2 -> {SecondLevel sl = new SecondLevel(currentLibrary);}
+            case 3 -> {TherdLevel tl = new TherdLevel(currentLibrary);}
         }
     }
 }
