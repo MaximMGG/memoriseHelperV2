@@ -91,4 +91,18 @@ public class LearnUtil {
         }
         return mapOfProgress;
     }
+
+
+    public static List<String> getFourRandmTranslations(LearnMap<Integer, String> help, String tr) {
+        rand = new Random(123321123);
+        List<String> randomFour = new ArrayList<>();
+        while (randomFour.size() < 4) {
+            int buf = rand.nextInt(help.length() + 1);
+            randomFour.add(help.getSecondVal(buf));
+        }
+
+        randomFour.add(rand.nextInt(4), tr);
+        return randomFour;
+    }
+
 }

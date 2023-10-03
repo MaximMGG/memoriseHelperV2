@@ -15,9 +15,11 @@ public class LearnMap<I, V> {
     }
 
     public void put(I key, V firstVal, V secondVal) {
+        node[index] = new Node<>();
         node[index].key = key;
         node[index].firstVal = firstVal;
         node[index].secondVal = secondVal;
+        index++;
         length++;
     }
 
@@ -39,6 +41,15 @@ public class LearnMap<I, V> {
         return localNode.secondVal;
     }
 
+    public boolean conteins(V v) {
+        for (int i = 0; i < node.length; i++) {
+            if(node[i].secondVal.equals(v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Node<I, V> getNodeByKey(I key) {
         for (int i = 0; i < node.length; i++) {
            if (node[i].key == key) {
@@ -54,4 +65,6 @@ public class LearnMap<I, V> {
         public V firstVal;
         public V secondVal;
     }
+
+
 }
