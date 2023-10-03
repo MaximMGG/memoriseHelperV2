@@ -4,18 +4,25 @@ public class LearnMap<I, V> {
 
     private Node<I, V>[] node;
     private int index;
+    private int length;
 
 
 
     public LearnMap() {
         node = new Node[10];
         index = 0;
+        length = 0;
     }
 
     public void put(I key, V firstVal, V secondVal) {
         node[index].key = key;
         node[index].firstVal = firstVal;
         node[index].secondVal = secondVal;
+        length++;
+    }
+
+    public int length() {
+        return length;
     }
 
     public V getFirstVal(I key) {
@@ -43,13 +50,8 @@ public class LearnMap<I, V> {
 
 
     private class Node<I, V> {
-        
         public I key;
         public V firstVal;
         public V secondVal;
-        
-
-
     }
-    
 }

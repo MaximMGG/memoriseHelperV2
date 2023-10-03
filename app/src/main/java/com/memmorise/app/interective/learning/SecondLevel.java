@@ -7,8 +7,10 @@ public class SecondLevel {
 
     private Map<String, String> currentLib;
     private List<Integer> currentFive;
+    private LearnMap<Integer, String> help;
 
     public SecondLevel(Map<String, String> currentLibrary) {
+        this.currentLib = currentLibrary;
     }
     
 
@@ -17,7 +19,8 @@ public class SecondLevel {
 
 
 
-        return null;
+
+        return progress;
     };
 
 }

@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.memmorise.app.interective.learning.util.LearnUtil;
+
 public class FirstLevel {
     
     
@@ -31,8 +33,8 @@ public class FirstLevel {
 
 
     private void run() {
-        prepereHelp();
-        prepereCurrentFive();
+        LearnUtil.prepareLearnMap(currentLib);
+        LearnUtil.prepareFive(help, learnedWords);
         System.out.println("Lets start to memorising word!");
         letsLearnFive();
     }
@@ -44,10 +46,10 @@ public class FirstLevel {
      * when will be learndedWords.size() == currentLib.size() exit forom method
      */
     private void letsLearnFive() {
-        Map<Integer, Integer> progress = getMapOfProgress();
+        Map<Integer, Integer> progress = LearnUtil.getMapOfProgress(currentFive);
         System.out.println("Here five word for memorise: ");
 
-        while(!checkProgress(progress)) {
+        while(!LearnUtil.checkProgress(progress, 1)) { 
             for(Integer i : currentFive) {
                 String word = help.getFirstVal(i);
                 String translations = help.getSecondVal(i);
@@ -56,61 +58,7 @@ public class FirstLevel {
                 scan.nextLine();
                 progress.put(i, progress.get(i) + 1);
             }
-            progress = secondLevel.letsLearnFive(progress, currentFive);
         }
-    }
-
-
-    private Map<Integer, Integer> getMapOfProgress() {
-        Map<Integer, Integer> mapOfProgress = new HashMap<>();
-        for (int i = 0; i < 5; i++) {
-           mapOfProgress.put(currentFive.get(i), 0);
-        }
-        return mapOfProgress;
-    }
-
-
-    /**
-     *Checking list of progress, if all numbers 5 or gratter return true
-     * @param progress
-     * @return boolean
-     */
-    private boolean checkProgress(Map<Integer, Integer> progress) {
-        for(Map.Entry<Integer, Integer> entry : progress.entrySet()) {
-            if (entry.getValue() < 5) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     *Methof for prepare 5 word for learning, @currentFive List with 5 words
-     *if currentLib.size() == learnedWords.size() do not do enithing
-     */
-    private void prepereCurrentFive() {
-        currentFive = new ArrayList<>();
-        int index;
-        for (int i = 0; i < 5; i++) {
-            index = random.nextInt(currentLib.size());
-            if (!learnedWords.contains(index)) {
-                learnedWords.add(index);
-                currentFive.add(index);
-            } else {
-                i = currentLib.size() == learnedWords.size() ? i : i - 1;
-            }
-        }
-    }
-
-
-    /**
-     *Method for add all word and tranlations in LearnMap structure of data
-     */
-    private void prepereHelp() {
-        int index = 0;
-        for (Map.Entry<String, String> entry : currentLib.entrySet()) {
-            help.put(index, entry.getKey(), entry.getValue());
-            index++;
-        }
+        progress = secondLevel.letsLearnFive(progress, currentFive);
     }
 }
