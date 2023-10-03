@@ -18,7 +18,7 @@ public class LearningStarter {
         dw = new DiskWorker();
     }
 
-    public void starter() throws IOException {
+    public void start() throws IOException {
         user.showUserLibraries();
         System.out.println("Chose the library, or enter 0 for go back");
         int libIndex = ChecksUtils.writeInt(0, user.getLibraries().size());

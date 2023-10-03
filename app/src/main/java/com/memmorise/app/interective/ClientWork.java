@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import com.memmorise.app.interective.chengeLibrary.ChangeLibraryStarter;
 import com.memmorise.app.interective.createLibrary.CreateLibraryStarter;
+import com.memmorise.app.interective.learning.LearningStarter;
 import com.memmorise.app.library.Library;
 import com.memmorise.app.user.User;
 import com.memmorise.app.utils.ChecksUtils;
@@ -51,7 +52,10 @@ public class ClientWork {
         chengeLibraryStarter.startChenging(InterectiveUtils.getUserShoseLibrary(user.getLibraries().size()));
     }
 
-    public void startToMemorise() {
+    public void startToMemorise() throws IOException {
+        LearningStarter ls = new LearningStarter();
+        ls.start();
+
     }
 
     
