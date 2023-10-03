@@ -5,16 +5,24 @@ public class LearnMap<I, V> {
     private Node<I, V>[] node;
     private int index;
     private int length;
+    private int maxLength = 10;
 
 
 
     public LearnMap() {
-        node = new Node[10];
+        node = new Node[maxLength];
         index = 0;
         length = 0;
     }
 
     public void put(I key, V firstVal, V secondVal) {
+
+        if (maxLength == length) {
+            incriseMaxLength();
+        }
+
+
+
         node[index] = new Node<>();
         node[index].key = key;
         node[index].firstVal = firstVal;
@@ -22,6 +30,7 @@ public class LearnMap<I, V> {
         index++;
         length++;
     }
+
 
     public int length() {
         return length;
@@ -57,6 +66,16 @@ public class LearnMap<I, V> {
            }
         }
         return null;
+    }
+
+    private void incriseMaxLength() {
+        maxLength *= 2;
+        Node<I, V> buffer[] = new Node[maxLength];
+
+        for (int i = 0; i < node.length; i++) {
+            buffer[i] = node[i];
+        }
+        node = buffer;
     }
 
 

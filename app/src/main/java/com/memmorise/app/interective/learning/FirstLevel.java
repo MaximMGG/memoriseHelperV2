@@ -1,40 +1,35 @@
 package com.memmorise.app.interective.learning;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
 
 import com.memmorise.app.interective.learning.util.LearnUtil;
+import com.memmorise.app.utils.ChecksUtils;
 
 public class FirstLevel {
     
     
     private Map<String, String> currentLib;
     private LearnMap<Integer, String> help;
-    private Random random;
     private List<Integer> learnedWords;
     private List<Integer> currentFive;
 
     private SecondLevel secondLevel;
     private TherdLevel therdLevel;
 
-    private Scanner scan;
-
     public FirstLevel(Map<String, String> currentLib) {
         this.currentLib = currentLib;
         this.learnedWords = new ArrayList<>();
-        this.secondLevel = new SecondLevel(currentLib);
-        this.therdLevel = new TherdLevel(currentLib);
         run();
     }
-
-
+    
+    
     private void run() {
-        LearnUtil.prepareLearnMap(currentLib);
-        LearnUtil.prepareFive(help, learnedWords);
+        help = LearnUtil.prepareLearnMap(currentLib);
+        this.secondLevel = new SecondLevel(currentLib, help);
+        this.therdLevel = new TherdLevel(currentLib);
+        currentFive = LearnUtil.prepareFive(help, learnedWords);
         System.out.println("Lets start to memorising word!");
         letsLearnFive();
     }
@@ -55,7 +50,7 @@ public class FirstLevel {
                 String translations = help.getSecondVal(i);
                 System.out.println("%s -> %s".formatted(word, translations));
                 System.out.println("Type enter for continue");
-                scan.nextLine();
+                ChecksUtils.justTypeEnter();
                 progress.put(i, progress.get(i) + 1);
             }
         }

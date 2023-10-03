@@ -15,12 +15,17 @@ public class SecondLevel {
     public SecondLevel(Map<String, String> currentLibrary) {
         this.currentLib = currentLibrary;
     }
+
+    public SecondLevel(Map<String, String> currentLibrary, LearnMap<Integer, String> help) {
+        this.currentLib = currentLibrary;
+        this.help = help;
+    }
     
 
 
     public Map<Integer, Integer> letsLearnFive(Map<Integer, Integer> progress, List<Integer> five){
 
-        while(LearnUtil.checkProgress(progress, 2)) {
+        while(!LearnUtil.checkProgress(progress, 2)) {
 
             for(Integer i : five) {
 
@@ -30,8 +35,8 @@ public class SecondLevel {
                 
                 System.out.println("Word is : " + word);
                 System.out.println("Chose translations :" );
+                int index = 1;
                 for(String s : randFour) {
-                    int index = 1;
                     System.out.println("%d. %s".formatted(index, s));
                     index++;
                 }

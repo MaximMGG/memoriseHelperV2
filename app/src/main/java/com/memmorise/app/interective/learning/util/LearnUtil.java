@@ -13,14 +13,16 @@ public class LearnUtil {
     private static Random rand;
 
     public static List<Integer> prepareFive(LearnMap<Integer, String> help, List<Integer> learnedWords) {
+        rand = new Random(123321123);
 
         List<Integer> currentFive = new ArrayList<>();
         int buf;
 
         for (int i = 0; i < 5; i++) {
-           buf = rand.nextInt(help.length() + 1);
+           buf = rand.nextInt(help.length());
            if (!learnedWords.contains(buf)) {
                 currentFive.add(buf);
+                learnedWords.add(buf);
            } else {
                i--;
            }
@@ -37,6 +39,7 @@ public class LearnUtil {
         int index = 0;
         for (Map.Entry<String, String> entry : currentLib.entrySet()) {
             help.put(index, entry.getKey(), entry.getValue());
+            index++;
         }
         return help;
     }
@@ -86,19 +89,22 @@ public class LearnUtil {
 
     public static Map<Integer, Integer> getMapOfProgress(List<Integer> currentFive){
         Map<Integer, Integer> mapOfProgress = new HashMap<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < currentFive.size(); i++) {
            mapOfProgress.put(currentFive.get(i), 0);
         }
         return mapOfProgress;
     }
 
 
+    //TODO need to rewrite this method, becose it puts more the 4 values in list, and sometime the same value appeares twise
     public static List<String> getFourRandmTranslations(LearnMap<Integer, String> help, String tr) {
         rand = new Random(123321123);
         List<String> randomFour = new ArrayList<>();
         while (randomFour.size() < 4) {
-            int buf = rand.nextInt(help.length() + 1);
-            randomFour.add(help.getSecondVal(buf));
+            int buf = rand.nextInt(help.length());
+            String trans = help.getSecondVal(buf);
+            if (!randomFour.contains(trans))
+                randomFour.add(trans);
         }
 
         randomFour.add(rand.nextInt(4), tr);

@@ -86,4 +86,8 @@ public class ChecksUtils {
         int i = writeInt(1, 2);
         return i == 1;
     }
+
+    public static void justTypeEnter() {
+        String a = scan.nextLine();
+    }
 }
