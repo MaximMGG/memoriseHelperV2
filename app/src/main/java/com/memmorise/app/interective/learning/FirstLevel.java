@@ -24,34 +24,40 @@ public class FirstLevel implements LearnLevel {
 
     @Override
     public int[] learnRandomPackOfWords() {
-        int[] pack = new int[packOfWords];
+        int[] pack = learnMap.getNextPackOfWords(packOfWords);
 
         for (int i = 0; i < packOfWords; i++) {
-            int count = rand.nextInt(learnMap.size()); 
-            pack[i] = count;
-            Node node = learnMap.map.get(count);
+
+            Node node = learnMap.map.get(pack[i]);
+
             if (node.levelOfNow == 0) {
                 System.out.printf("%s - %s\n", node.word, node.translation);
                 node.levelOfNow++;
             }
-        } 
+        }
         return pack;
     }
 
     @Override
     public int[] learnPackOfWords(int[] pack) {
         for (int i = 0; i < pack.length; i++) {
-            Node node = learnMap.map.get(pack[i]); 
+            Node node = learnMap.map.get(pack[i]);
             System.out.printf("%s - %s\n", node.word, node.translation);
             node.levelOfNow++;
         }
-        return null;
+        return pack;
     }
 
     @Override
     public void doProcess() {
         System.out.println("Memorise this word");
-        int[] pack = learnRandomPackOfWords();
+        int[] pack = learnMap.getNextPackOfWords(packOfWords);
+        do {
+            pack = learnPackOfWords(pack);
+            pack = secondLevel.learnPackOfWords(pack);
+            pack = therdLevel.learnPackOfWords(pack);
+        } while ((pack = learnMap.getNextPackOfWords(packOfWords)).length >= packOfWords);
+        
     }
 
 }

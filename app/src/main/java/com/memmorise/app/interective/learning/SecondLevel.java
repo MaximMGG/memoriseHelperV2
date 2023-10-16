@@ -59,7 +59,6 @@ public class SecondLevel implements LearnLevel {
                 i--;
             }
         }
-
         return pack;
     }
 

@@ -19,7 +19,24 @@ public class TherdLevel implements LearnLevel{
 
     @Override
     public int[] learnPackOfWords(int[] pack) {
-        return null;
+        for (int i = 0; i < pack.length; i++) {
+            
+        }
+
+        return pack;
+    }
+
+
+    private boolean checkCorrectWord(String tranlation, String userEnter) {
+        boolean result = true;
+        char origin[] = tranlation.toCharArray();
+        char userOrigin[] = userEnter.toCharArray();
+        char mark[] = new char[origin.length];
+        for (int i = 0; i < mark.length; i++) {
+            mark[i] = origin[i] == userOrigin[i] ? '*' : '^';
+            result = false;
+        }
+        return result;
     }
 
 }

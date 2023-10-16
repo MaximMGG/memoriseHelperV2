@@ -52,7 +52,7 @@ public class ClientWork {
         chengeLibraryStarter.startChenging(InterectiveUtils.getUserShoseLibrary(user.getLibraries().size()));
     }
 
-    public void startToMemorise() throws IOException {
+    public void startToMemorise() throws IOException, SQLException, InterruptedException {
         LearningStarter ls = new LearningStarter();
         ls.start();
 
