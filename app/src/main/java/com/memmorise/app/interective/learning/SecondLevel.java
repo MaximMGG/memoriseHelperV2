@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.memmorise.app.interective.learning.LearnMap.Node;
 import com.memmorise.app.library.Library;
+import com.memmorise.app.utils.ChecksUtils;
 
 public class SecondLevel implements LearnLevel {
 
@@ -34,12 +35,29 @@ public class SecondLevel implements LearnLevel {
     @Override
     public int[] learnPackOfWords(int[] pack) {
         for (int i = 0; i < pack.length; i++) {
-            int index = rand.nextInt(learnMap.size());
-            if (index == pack[i] && i != 0) index--;
-            if (index == pack[i] && i == 0) index++;
+            String[] sPack = getPackRandomTranslations(pack);
+
+            int guesedTr = rand.nextInt(sPack.length);
             Node node = learnMap.map.get(pack[i]);
-            
-            
+            sPack[guesedTr] = String.format("%d. Tranlation - %s", guesedTr + 1, node.translation);
+
+            System.out.printf("Word is %s chose tranlations\n", node.word);
+            for (int j = 0; j < sPack.length; j++) {
+                System.out.println(sPack[i]);
+            }
+            System.out.printf("Please write number of tranlation: ");
+            if (ChecksUtils.writeInt(0, sPack.length) == guesedTr - 1) {
+                System.out.println("Nice, good one.");
+                node.levelOfNow++;
+                node.mistakes = 0;
+            } else {
+                System.out.println("Unfotunatly not, try agane");
+                node.mistakes++;
+                if (node.mistakes >= 2) {
+                    node.levelOfNow--;
+                }
+                i--;
+            }
         }
 
         return pack;
@@ -51,7 +69,8 @@ public class SecondLevel implements LearnLevel {
             int index = rand.nextInt(learnMap.size());
             if (index == pack[i] && i != 0) index--;
             if (index == pack[i] && i == 0) index++;
+            sPack[i] = String.format("%d. Tranlation - %s", i + 1, learnMap.map.get(index).translation);
         }
+        return sPack;
     }
-
 }

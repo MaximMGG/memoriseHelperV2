@@ -17,4 +17,9 @@ public class TherdLevel implements LearnLevel{
     public void doProcess() {
     }
 
+    @Override
+    public int[] learnPackOfWords(int[] pack) {
+        return null;
+    }
+
 }

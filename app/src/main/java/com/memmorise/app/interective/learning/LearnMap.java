@@ -28,12 +28,13 @@ public class LearnMap {
         public int levelOfNow;
         public String word;
         public String translation;
+        public int mistakes;
 
         private Node(int levelOfNow, String word, String translation) {
             this.levelOfNow = levelOfNow;
             this.word = word;
             this.translation = translation;
-
+            this.mistakes = 0;
         }
     }
 }
