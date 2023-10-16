@@ -37,6 +37,6 @@ public class LearningStarter {
     private void learnProces(int libIndex) throws IOException {
         Library curLib = user.getLibraries().get(libIndex -1);
         learnMap = new LearnMap();
-        learnMap.setMap(curLib);
+        learnMap.setMap(curLib, 0);
     }
 }

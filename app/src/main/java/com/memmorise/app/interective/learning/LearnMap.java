@@ -9,17 +9,20 @@ import com.memmorise.app.library.Library;
 public class LearnMap {
 
     public List<Node> map;
+    private int length;
 
-    public void setMap(Library lib) {
+    public void setMap(Library lib, int levelOfNow) {
         map = new ArrayList<>();
-        int count = 0;
+        length = 0;
         for(Map.Entry<String, String> entry : lib.getLibraryContent().entrySet()) {
-            map.add(new Node(count, entry.getKey(), entry.getValue()));
+            map.add(new Node(levelOfNow, entry.getKey(), entry.getValue()));
+            length++;
         }
     }
 
-
-
+    public int size() {
+        return length;
+    }
 
     public class Node {
         public int levelOfNow;
