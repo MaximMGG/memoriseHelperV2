@@ -1,89 +1,36 @@
 package com.memmorise.app.interective.learning;
 
-public class LearnMap<I, V> {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-    private Node<I, V>[] node;
-    private int index;
-    private int length;
-    private int maxLength = 10;
+import com.memmorise.app.library.Library;
 
+public class LearnMap {
 
+    public List<Node> map;
 
-    public LearnMap() {
-        node = new Node[maxLength];
-        index = 0;
-        length = 0;
-    }
-
-    public void put(I key, V firstVal, V secondVal) {
-
-        if (maxLength == length) {
-            incriseMaxLength();
+    public void setMap(Library lib) {
+        map = new ArrayList<>();
+        int count = 0;
+        for(Map.Entry<String, String> entry : lib.getLibraryContent().entrySet()) {
+            map.add(new Node(count, entry.getKey(), entry.getValue()));
         }
-
-
-
-        node[index] = new Node<>();
-        node[index].key = key;
-        node[index].firstVal = firstVal;
-        node[index].secondVal = secondVal;
-        index++;
-        length++;
     }
 
 
-    public int length() {
-        return length;
-    }
 
-    public V getFirstVal(I key) {
 
-        Node<I, V> localNode = getNodeByKey(key);
+    public class Node {
+        public int levelOfNow;
+        public String word;
+        public String translation;
 
-        return localNode.firstVal;
-    }
-    
-    public V getSecondVal(I key) {
+        private Node(int levelOfNow, String word, String translation) {
+            this.levelOfNow = levelOfNow;
+            this.word = word;
+            this.translation = translation;
 
-        Node<I, V> localNode = getNodeByKey(key);
-
-        return localNode.secondVal;
-    }
-
-    public boolean conteins(V v) {
-        for (int i = 0; i < node.length; i++) {
-            if(node[i].secondVal.equals(v)) {
-                return true;
-            }
         }
-        return false;
     }
-
-    private Node<I, V> getNodeByKey(I key) {
-        for (int i = 0; i < node.length; i++) {
-           if (node[i].key == key) {
-                return node[i];
-           }
-        }
-        return null;
-    }
-
-    private void incriseMaxLength() {
-        maxLength *= 2;
-        Node<I, V> buffer[] = new Node[maxLength];
-
-        for (int i = 0; i < node.length; i++) {
-            buffer[i] = node[i];
-        }
-        node = buffer;
-    }
-
-
-    private class Node<I, V> {
-        public I key;
-        public V firstVal;
-        public V secondVal;
-    }
-
-
 }

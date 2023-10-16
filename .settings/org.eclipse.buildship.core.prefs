@@ -1,4 +1,4 @@
-arguments=--init-script C\:\\Users\\123\\AppData\\Local\\nvim-data\\mason\\packages\\jdtls\\config_win\\org.eclipse.osgi\\53\\0\\.cp\\gradle\\init\\init.gradle
+arguments=--init-script C\:\\Users\\Maxim\\AppData\\Local\\nvim-data\\mason\\packages\\jdtls\\config_win\\org.eclipse.osgi\\53\\0\\.cp\\gradle\\init\\init.gradle
 auto.sync=false
 build.scans.enabled=false
 connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
