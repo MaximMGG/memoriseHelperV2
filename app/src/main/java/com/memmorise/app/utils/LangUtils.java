@@ -18,4 +18,13 @@ public class LangUtils {
             default -> {return null;}
         }
     }
+
+    public static String mapCharArrToString(char[] forMap) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < forMap.length; i++) {
+            sb.append(forMap[i]);
+        }
+
+        return sb.toString();
+    }
 }
