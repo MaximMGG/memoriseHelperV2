@@ -32,7 +32,7 @@ public class TherdLevel implements LearnLevel{
     @Override
     public int[] learnPackOfWords(int[] pack) {
         for (int i = 0; i < pack.length; i++) {
-            Node node = learnMap.map.get(i);
+            Node node = learnMap.map.get(pack[i]);
             System.out.printf("Here the word %s, please enter tranlation\n", node.word);
             String userEnter = ChecksUtils.writeString();
             if (checkCorrectWord(node.translation, userEnter)) {
@@ -42,7 +42,6 @@ public class TherdLevel implements LearnLevel{
                 node.mistakes++;
             }
         }
-
         return pack;
     }
 

@@ -57,7 +57,19 @@ public class FirstLevel implements LearnLevel {
             pack = secondLevel.learnPackOfWords(pack);
             pack = therdLevel.learnPackOfWords(pack);
         } while ((pack = learnMap.getNextPackOfWords(packOfWords)).length >= packOfWords);
-        
+    }
+
+    private boolean checkLevel(int[] pack, int level) {
+        int result[] = new int[pack.length + 1];
+        int index = 1;
+        for (int i = 0; i < pack.length; i++) {
+           Node node = learnMap.map.get(pack[i]);
+           if (node.levelOfNow != level) {
+            result[0] = 1;
+           }
+        }
+
+        return false;
     }
 
 }
