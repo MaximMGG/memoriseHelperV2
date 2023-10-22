@@ -42,7 +42,10 @@ public class LearnMap {
                 i--;
                 continue;
             }
-            lPack.add(tmp);
+            if (!lPack.contains(tmp))
+                lPack.add(tmp);
+            else
+                i--;
         }
         return lPack;
     }

@@ -13,7 +13,7 @@ public class SecondLevel implements LearnLevel {
     private LearnMap learnMap;
     private int packOfWords;
     private Random rand;
-    private FirstLevel secondLevel;
+    private FirstLevel firstLevel;
     private TherdLevel therdLevel;
 
     @Override
@@ -21,6 +21,8 @@ public class SecondLevel implements LearnLevel {
         this.curLibrary = curLibrary;
         this.learnMap = learnMap;
         this.packOfWords = packOfWords;
+        firstLevel = new FirstLevel();
+        therdLevel = new TherdLevel();
         rand = new Random(System.currentTimeMillis());
     }
 
@@ -38,12 +40,12 @@ public class SecondLevel implements LearnLevel {
             int guesedTr = rand.nextInt(sPack.length);
             sPack[guesedTr] = String.format("%d. Tranlation - %s", guesedTr + 1, node.translation);
 
-            System.out.printf("Word is %s chose tranlations\n", node.word);
+            System.out.printf("Word is \"%s\" chose tranlations\n", node.word);
             for (int j = 0; j < sPack.length; j++) {
-                System.out.println(sPack[i]);
+                System.out.println(sPack[j]);
             }
             System.out.printf("Please write number of tranlation: ");
-            if (ChecksUtils.writeInt(0, sPack.length) == guesedTr - 1) {
+            if (ChecksUtils.writeInt(0, sPack.length) == guesedTr + 1) {
                 System.out.println("Nice, good one.");
                 node.levelOfNow += node.levelOfNow >= 3 ? 0 : 1;
                 node.mistakes = 0;

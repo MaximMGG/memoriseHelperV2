@@ -42,9 +42,10 @@ public class LearningStarter {
 
     private void learnProces(int libIndex) throws IOException {
         Library curLib = user.getLibraries().get(libIndex -1);
+        curLib = dw.getLibraryFromDisk(curLib);
         learnMap = new LearnMap();
         System.out.println("Set level of novelage in this library");
-        System.out.println("Where 0 -> is you don't now this words");
+        System.out.println("Where: \n0 -> is you don't now this words");
         System.out.println("1 -> you actually now this words but not good");
         System.out.println("2 -> you now good this words");
         int level = ChecksUtils.writeInt(0, 2);

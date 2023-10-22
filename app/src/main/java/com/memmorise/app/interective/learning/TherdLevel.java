@@ -13,13 +13,15 @@ public class TherdLevel implements LearnLevel{
     private int packOfWords;
     private Random rand;
     private SecondLevel secondLevel;
-    private TherdLevel therdLevel;
+    private FirstLevel firstLevel;
 
     @Override
     public void init(Library curLibrary, LearnMap learnMap, int packOfWords) {
         this.curLibrary = curLibrary;
         this.learnMap = learnMap;
         this.packOfWords = packOfWords;
+        secondLevel = new SecondLevel();
+        firstLevel = new FirstLevel();
         rand = new Random(System.currentTimeMillis());
     }
 

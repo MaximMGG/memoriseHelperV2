@@ -22,6 +22,10 @@ public class FirstLevel implements LearnLevel {
         this.learnMap = learnMap;
         this.packOfWords = packOfWords;
         rand = new Random(System.currentTimeMillis());
+        secondLevel = new SecondLevel();
+        secondLevel.init(curLibrary, learnMap, packOfWords);
+        therdLevel = new TherdLevel();
+        therdLevel.init(curLibrary, learnMap, packOfWords);
     }
 
 
