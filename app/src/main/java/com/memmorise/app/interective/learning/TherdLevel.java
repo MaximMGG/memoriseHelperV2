@@ -44,7 +44,8 @@ public class TherdLevel implements LearnLevel{
             aPrint(String.format("Here is word %s, please write tranlation.\n", node.word), 20L);
 
             String userTranslation = scan.nextLine();
-            if (checkCorrectWord(node.word, userTranslation)) {
+            if (checkCorrectWord(node.translation, userTranslation)) {
+                aPrint("Yes, you are correct!", 20L);
                 node.levelOfNow += node.levelOfNow > 5 ? 0 : 1;
                 node.mistakes = 0;
             }
@@ -64,17 +65,24 @@ public class TherdLevel implements LearnLevel{
         boolean result = true;
         char origin[] = tranlation.toCharArray();
         char userOrigin[] = userEnter.toCharArray();
-        char mark[] = new char[userOrigin.length];
-        for (int i = 0; i < userOrigin.length; i++) {
-            mark[i] = origin[i] == userOrigin[i] ? '.' : '^';
-            result = false;
+        char mark[] = new char[origin.length];
+        for (int i = 0; i < origin.length; i++) {
+            if (i >= userOrigin.length) {
+                mark[i] = '^';
+                result = false;
+                continue;
+            }
+            if (origin[i] == userOrigin[i]) {
+                mark[i] = '.';
+            } else {
+                mark[i] = '^';
+                result = false;
+            }
         }
         if (!result) {
             aPrint(userOrigin, 30L);
             aPrint(mark, 30L);
         }
-
-
         return result;
     }
 

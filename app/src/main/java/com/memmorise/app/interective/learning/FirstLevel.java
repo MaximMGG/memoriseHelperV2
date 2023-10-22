@@ -49,22 +49,22 @@ public class FirstLevel implements LearnLevel {
 
         while((pack = learnMap.getNextPackOfWords(packOfWords)).size() > 0){
             pack = learnPackOfWords(pack);
-            waitM(2000);
-            pack = secondLevel.learnPackOfWords(pack);
-
+            
             List<Node> tmp;
-
+            
             waitM(2000);
             aPrint("Going to the next level", 30L);
             while ((tmp = LearnUtil.checkLevelOfNow(pack, 3, learnMap)).size() > 0) {
-                secondLevel.learnPackOfWords(tmp);
+                pack = secondLevel.learnPackOfWords(tmp);
             }
 
-            pack = therdLevel.learnPackOfWords(pack);
 
+            aPrint("Going to the next level", 30L);
             while ((tmp = LearnUtil.checkLevelOfNow(pack, 5, learnMap)).size() > 0) {
-                secondLevel.learnPackOfWords(tmp);
+                pack = therdLevel.learnPackOfWords(tmp);
             }
+
+            aPrint(String.format("Well done, going to the next %d words", packOfWords), 20L);
         }
     }
 }
