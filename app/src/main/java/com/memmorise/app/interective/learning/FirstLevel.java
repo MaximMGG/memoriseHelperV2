@@ -1,8 +1,10 @@
 package com.memmorise.app.interective.learning;
 
+import java.util.List;
 import java.util.Random;
 
 import com.memmorise.app.interective.learning.LearnMap.Node;
+import com.memmorise.app.interective.learning.util.LearnUtil;
 import com.memmorise.app.library.Library;
 
 public class FirstLevel implements LearnLevel {
@@ -22,26 +24,11 @@ public class FirstLevel implements LearnLevel {
         rand = new Random(System.currentTimeMillis());
     }
 
-    @Override
-    public int[] learnRandomPackOfWords() {
-        int[] pack = learnMap.getNextPackOfWords(packOfWords);
-
-        for (int i = 0; i < packOfWords; i++) {
-
-            Node node = learnMap.map.get(pack[i]);
-
-            if (node.levelOfNow == 0) {
-                System.out.printf("%s - %s\n", node.word, node.translation);
-                node.levelOfNow++;
-            }
-        }
-        return pack;
-    }
 
     @Override
-    public int[] learnPackOfWords(int[] pack) {
-        for (int i = 0; i < pack.length; i++) {
-            Node node = learnMap.map.get(pack[i]);
+    public List<Node> learnPackOfWords(List<Node> pack) {
+        for (int i = 0; i < pack.size(); i++) {
+            Node node = pack.get(i);
             System.out.printf("%s - %s\n", node.word, node.translation);
             node.levelOfNow++;
         }
@@ -51,13 +38,23 @@ public class FirstLevel implements LearnLevel {
     @Override
     public void doProcess() {
         System.out.println("Memorise this word");
-        int[] pack = learnMap.getNextPackOfWords(packOfWords);
-        do {
+        List<Node> pack;
+
+        while((pack = learnMap.getNextPackOfWords(packOfWords)).size() > 0){
             pack = learnPackOfWords(pack);
             pack = secondLevel.learnPackOfWords(pack);
-            pack = therdLevel.learnPackOfWords(pack);
-        } while ((pack = learnMap.getNextPackOfWords(packOfWords)).length >= packOfWords);
-        
-    }
 
+            List<Node> tmp;
+
+            while ((tmp = LearnUtil.checkLevelOfNow(pack, 3, learnMap)).size() > 0) {
+                secondLevel.learnPackOfWords(tmp);
+            }
+
+            pack = therdLevel.learnPackOfWords(pack);
+            while ((tmp = LearnUtil.checkLevelOfNow(pack, 5, learnMap)).size() > 0) {
+                secondLevel.learnPackOfWords(tmp);
+            }
+
+        }
+    }
 }

@@ -26,29 +26,25 @@ public class LearnMap {
         return length;
     }
 
-    public int[] getNextPackOfWords(int packSize) {
-        int pack[] = new int[packSize];
-
-        if (map.size() - learnedWords.size() < packSize) {
-            pack = new int[map.size() - learnedWords.size()];
-        }
+    public List<Node> getNextPackOfWords(int packSize) {
+        List<Node> lPack = new ArrayList<>();
 
         if (learnedWords == null) learnedWords = new ArrayList<>();
         Random rand = new Random(System.currentTimeMillis());
 
-        for (int i = 0; i < pack.length; i++) {
+        for (int i = 0; i < packSize; i++) {
             int r = rand.nextInt(map.size());
             Node tmp = map.get(r);
             if (learnedWords.contains(tmp)) {
                 if (learnedWords.size() == map.size()) {
-                    return pack;
+                    return lPack;
                 }
                 i--;
                 continue;
             }
-            pack[i] = r;
+            lPack.add(tmp);
         }
-        return pack;
+        return lPack;
     }
 
     public class Node {

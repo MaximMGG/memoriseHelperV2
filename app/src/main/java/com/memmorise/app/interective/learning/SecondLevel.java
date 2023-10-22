@@ -1,5 +1,6 @@
 package com.memmorise.app.interective.learning;
 
+import java.util.List;
 import java.util.Random;
 
 import com.memmorise.app.interective.learning.LearnMap.Node;
@@ -28,17 +29,12 @@ public class SecondLevel implements LearnLevel {
     }
 
     @Override
-    public int[] learnRandomPackOfWords() {
-        return null;
-    }
-
-    @Override
-    public int[] learnPackOfWords(int[] pack) {
-        for (int i = 0; i < pack.length; i++) {
+    public List<Node> learnPackOfWords(List<Node> pack) {
+        for (int i = 0; i < pack.size(); i++) {
             String[] sPack = getPackRandomTranslations(pack);
+            Node node = pack.get(i);
 
             int guesedTr = rand.nextInt(sPack.length);
-            Node node = learnMap.map.get(pack[i]);
             sPack[guesedTr] = String.format("%d. Tranlation - %s", guesedTr + 1, node.translation);
 
             System.out.printf("Word is %s chose tranlations\n", node.word);
@@ -48,7 +44,7 @@ public class SecondLevel implements LearnLevel {
             System.out.printf("Please write number of tranlation: ");
             if (ChecksUtils.writeInt(0, sPack.length) == guesedTr - 1) {
                 System.out.println("Nice, good one.");
-                node.levelOfNow++;
+                node.levelOfNow += node.levelOfNow >= 3 ? 0 : 1;
                 node.mistakes = 0;
             } else {
                 System.out.println("Unfotunatly not, try agane");
@@ -62,13 +58,16 @@ public class SecondLevel implements LearnLevel {
         return pack;
     }
 
-    private String[] getPackRandomTranslations(int[] pack) {
+    private String[] getPackRandomTranslations(List<Node> pack) {
         String sPack[] = new String[packOfWords];
         for (int i = 0; i < sPack.length; i++) {
             int index = rand.nextInt(learnMap.size());
-            if (index == pack[i] && i != 0) index--;
-            if (index == pack[i] && i == 0) index++;
-            sPack[i] = String.format("%d. Tranlation - %s", i + 1, learnMap.map.get(index).translation);
+            Node tmp = learnMap.map.get(index);
+            if (pack.contains(tmp)) {
+                i--;
+                continue;
+            }
+            sPack[i] = String.format("%d. Tranlation - %s", i + 1, tmp.translation);
         }
         return sPack;
     }

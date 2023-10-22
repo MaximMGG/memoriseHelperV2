@@ -1,11 +1,25 @@
 package com.memmorise.app.interective.learning;
 
-import com.memmorise.app.library.Library;
+import java.util.Random;
 
+import com.memmorise.app.interective.learning.LearnMap.Node;
+import com.memmorise.app.library.Library;
+import com.memmorise.app.utils.ChecksUtils;
 public class TherdLevel implements LearnLevel{
+
+    private Library curLibrary;
+    private LearnMap learnMap;
+    private int packOfWords;
+    private Random rand;
+    private SecondLevel secondLevel;
+    private TherdLevel therdLevel;
 
     @Override
     public void init(Library curLibrary, LearnMap learnMap, int packOfWords) {
+        this.curLibrary = curLibrary;
+        this.learnMap = learnMap;
+        this.packOfWords = packOfWords;
+        rand = new Random(System.currentTimeMillis());
     }
 
     @Override
@@ -20,9 +34,18 @@ public class TherdLevel implements LearnLevel{
     @Override
     public int[] learnPackOfWords(int[] pack) {
         for (int i = 0; i < pack.length; i++) {
-            
+            Node node = learnMap.map.get(pack[i]);
+            System.out.printf("Here is word %s, please write tranlation.\n", node.word);
+            String userTranslation = ChecksUtils.writeString();
+            if (checkCorrectWord(node.word, userTranslation)) {
+                node.levelOfNow += node.levelOfNow >= 5 ? 0 : 1;
+                node.mistakes = 0;
+            }
+            else {
+                node.mistakes++;
+                node.levelOfNow--;
+            }
         }
-
         return pack;
     }
 
@@ -36,6 +59,16 @@ public class TherdLevel implements LearnLevel{
             mark[i] = origin[i] == userOrigin[i] ? '*' : '^';
             result = false;
         }
+        if (!result) {
+            for (int i = 0; i < mark.length; i++) {
+                System.out.print(userOrigin[i]);
+            }
+            for (int i = 0; i < mark.length; i++) {
+                System.out.print(mark[i]);
+            }
+        }
+
+
         return result;
     }
 
