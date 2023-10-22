@@ -26,6 +26,7 @@ public class SecondLevel implements LearnLevel {
 
     @Override
     public void doProcess() {
+
     }
 
     @Override
@@ -52,7 +53,6 @@ public class SecondLevel implements LearnLevel {
                 if (node.mistakes >= 2) {
                     node.levelOfNow--;
                 }
-                i--;
             }
         }
         return pack;

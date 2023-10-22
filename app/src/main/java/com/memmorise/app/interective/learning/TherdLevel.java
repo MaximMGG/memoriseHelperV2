@@ -1,5 +1,6 @@
 package com.memmorise.app.interective.learning;
 
+import java.util.List;
 import java.util.Random;
 
 import com.memmorise.app.interective.learning.LearnMap.Node;
@@ -23,22 +24,17 @@ public class TherdLevel implements LearnLevel{
     }
 
     @Override
-    public int[] learnRandomPackOfWords() {
-        return null;
-    }
-
-    @Override
     public void doProcess() {
     }
 
     @Override
-    public int[] learnPackOfWords(int[] pack) {
-        for (int i = 0; i < pack.length; i++) {
-            Node node = learnMap.map.get(pack[i]);
+    public List<Node> learnPackOfWords(List<Node> pack) {
+        for (int i = 0; i < pack.size(); i++) {
+            Node node = pack.get(i);
             System.out.printf("Here is word %s, please write tranlation.\n", node.word);
             String userTranslation = ChecksUtils.writeString();
             if (checkCorrectWord(node.word, userTranslation)) {
-                node.levelOfNow += node.levelOfNow >= 5 ? 0 : 1;
+                node.levelOfNow += node.levelOfNow > 5 ? 0 : 1;
                 node.mistakes = 0;
             }
             else {
