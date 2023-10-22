@@ -1,5 +1,7 @@
 package com.memmorise.app.interective.learning;
 
+import static com.memmorise.app.interective.learning.util.LearnUtil.*;
+
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +35,8 @@ public class FirstLevel implements LearnLevel {
     public List<Node> learnPackOfWords(List<Node> pack) {
         for (int i = 0; i < pack.size(); i++) {
             Node node = pack.get(i);
-            System.out.printf("%s - %s\n", node.word, node.translation);
+            aPrint(String.format("%s - %s", node.word, node.translation), 20L);
+            enter();
             node.levelOfNow++;
         }
         return pack;
@@ -41,24 +44,27 @@ public class FirstLevel implements LearnLevel {
 
     @Override
     public void doProcess() {
-        System.out.println("Memorise this word");
+        aPrint("Memorise this word", 30L);
         List<Node> pack;
 
         while((pack = learnMap.getNextPackOfWords(packOfWords)).size() > 0){
             pack = learnPackOfWords(pack);
+            waitM(2000);
             pack = secondLevel.learnPackOfWords(pack);
 
             List<Node> tmp;
 
+            waitM(2000);
+            aPrint("Going to the next level", 30L);
             while ((tmp = LearnUtil.checkLevelOfNow(pack, 3, learnMap)).size() > 0) {
                 secondLevel.learnPackOfWords(tmp);
             }
 
             pack = therdLevel.learnPackOfWords(pack);
+
             while ((tmp = LearnUtil.checkLevelOfNow(pack, 5, learnMap)).size() > 0) {
                 secondLevel.learnPackOfWords(tmp);
             }
-
         }
     }
 }

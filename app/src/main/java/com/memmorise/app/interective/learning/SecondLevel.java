@@ -1,5 +1,7 @@
 package com.memmorise.app.interective.learning;
 
+import static com.memmorise.app.interective.learning.util.LearnUtil.*;
+
 import java.util.List;
 import java.util.Random;
 
@@ -40,17 +42,18 @@ public class SecondLevel implements LearnLevel {
             int guesedTr = rand.nextInt(sPack.length);
             sPack[guesedTr] = String.format("%d. Tranlation - %s", guesedTr + 1, node.translation);
 
-            System.out.printf("Word is \"%s\" chose tranlations\n", node.word);
+            aPrint(String.format("Word is \"%s\" chose tranlations", node.word), 20L);
             for (int j = 0; j < sPack.length; j++) {
-                System.out.println(sPack[j]);
+                aPrint(sPack[j], 20L);
             }
-            System.out.printf("Please write number of tranlation: ");
+            aPrint("Please write number of tranlation: ", 20L);
             if (ChecksUtils.writeInt(0, sPack.length) == guesedTr + 1) {
-                System.out.println("Nice, good one.");
+                aPrint("Nice, good one.", 20L);
                 node.levelOfNow += node.levelOfNow >= 3 ? 0 : 1;
                 node.mistakes = 0;
             } else {
-                System.out.println("Unfotunatly not, try agane");
+                aPrint("Unfotunatly not, try agane", 20L);
+                i--;
                 node.mistakes++;
                 if (node.mistakes >= 2) {
                     node.levelOfNow--;
@@ -69,7 +72,10 @@ public class SecondLevel implements LearnLevel {
                 i--;
                 continue;
             }
-            sPack[i] = String.format("%d. Tranlation - %s", i + 1, tmp.translation);
+            if (!arrayContains(sPack, tmp.translation))
+                sPack[i] = String.format("%d. Tranlation - %s", i + 1, tmp.translation);
+            else
+                i--;
         }
         return sPack;
     }
